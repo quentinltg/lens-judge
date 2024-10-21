@@ -1,4 +1,3 @@
-## Diagramme de classes : 
 
 
 
@@ -30,9 +29,11 @@
 | Configuration de l’exécution sur un cas de test               | Axel      |          Pas de patron indispensable                   |
 | Programme principal du juge automatique               | Axel      |                       Pas de patron indispensable      |
 
+## Diagramme de classes : 
+
+
 ```plantuml
 @startuml
-title Class Diagram - Automatic Judge with Compiler Interface
 
 ' Compiler Interface
 interface ICompiler {
