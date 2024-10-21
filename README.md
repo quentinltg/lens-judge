@@ -163,8 +163,73 @@ class Context {
 + setExecutor(e: Executor): void
 + execute(): void
   }
+  
+interface IVerify {
+    + verify(solution, expected) : bool
+}
+
+class VerificationContext {
+    - verify: Verify
+    + setVerifier(verifier: Verifier)
+    + verify(solution, expected) : bool
+}
+
+
+class StrictVerify {
+    + verify(solution, expected) : bool
+}
+
+class RealToleranceVerify {
+    + verify(solution, expected) : bool
+}
+
+
+class CaseInsensitiveVerify {
+    + verify(solution, expected) : bool
+}
+
+
+class SpaceToleranceVerify {
+    + verify(solution, expected) : bool
+}
+
+
+class OrderToleranceVerify {
+    + verify(solution, expected) : bool
+}
+
+
+class MultipleSolutionsVerify {
+    + verify(solution, expected) : bool
+}
+
+
+class ExternalProgramVerify {
+    + verify(solution, expected) : bool
+}
 
 ' Relationships
+
+VerificationContext --> IVerify
+
+IVerify <|-- StrictVerify
+
+IVerify <|-- RealToleranceVerify
+
+IVerify <|-- ExternalProgramVerify
+
+IVerify <|-- SpaceToleranceVerify
+
+IVerify <|-- CaseInsensitiveVerify
+
+IVerify <|-- OrderToleranceVerify
+
+IVerify <|-- MultipleSolutionsVerify
+
+
+
+
+
 JavaCompiler --|> ICompiler
 CCompiler --|> ICompiler
 CPlusPlusCompiler --|> ICompiler
