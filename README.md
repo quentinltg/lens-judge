@@ -94,11 +94,11 @@ CPlusPlusCompiler --|> ICompiler
 PythonCompiler --|> ICompiler
 Judge --> ICompiler
 
-Context --> Executor
-Executor <|.. ExecutorC
-Executor <|.. ExecutorCPP
-Executor <|.. ExecutorJava
-Executor <|.. ExecutorPython
+Context --> IExecutor
+IExecutor <|.. ExecutorC
+IExecutor <|.. ExecutorCPP
+IExecutor <|.. ExecutorJava
+IExecutor <|.. ExecutorPython
 
 @enduml
 
