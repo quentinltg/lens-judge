@@ -35,6 +35,83 @@
 ```plantuml
 @startuml
 
+
+ class TestCase {
+        - input: String
+        - expectedOutput: String
+        - validationCriteria: String
+        + validate(): boolean
+    }
+
+    interface IProblemComponent {
+        + add(component: IProblemComponent)
+        + remove(component: IProblemComponent)
+        + getChild(index: int): IProblemComponent
+    }
+
+    class SingleProblem implements IProblemComponent {
+        - name: String
+        - language: String
+        - testCases: List<TestCase>
+        + executeTests()
+    }
+
+    class CompositeProblem implements IProblemComponent {
+        - name: String
+        - problems: List<IProblemComponent>
+        + add(component: IProblemComponent)
+        + remove(component: IProblemComponent)
+        + getChild(index: int): IProblemComponent
+    }
+
+    class ProblemBuilder {
+        - name: String
+        - language: String
+        - testCases: List<TestCase>
+        + setName(name: String): ProblemBuilder
+        + setLanguage(lang: String): ProblemBuilder
+        + addTestCase(testCase: TestCase): ProblemBuilder
+        + build(): IProblemComponent
+    }
+
+    class Process {
+        - state: IProcessState
+        + setState(state: IProcessState)
+        + execute()
+    }
+
+    interface IProcessState {
+        + handle()
+    }
+
+    class RunningState implements IProcessState {
+        + handle()
+    }
+
+    class WaitingState implements IProcessState {
+        + handle()
+    }
+
+    class TerminatedState implements IProcessState {
+        + handle()
+    }
+
+    interface IProcessDecorator {
+        + execute()
+    }
+
+    class TimedProcessDecorator implements IProcessDecorator {
+        - process: Process
+        - timeout: long
+        + execute()
+    }
+
+    class MemoryLimitedProcessDecorator implements IProcessDecorator {
+        - process: Process
+        - memoryLimit: long
+        + execute()
+    }
+
 ' Compiler Interface
 interface ICompiler {
     + compile(sourceFile: String): void
@@ -99,6 +176,9 @@ IExecutor <|.. ExecutorC
 IExecutor <|.. ExecutorCPP
 IExecutor <|.. ExecutorJava
 IExecutor <|.. ExecutorPython
+
+
+
 
 @enduml
 
