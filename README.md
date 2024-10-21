@@ -11,7 +11,7 @@
 | Configuration d'un problème                   | Quentin   | Builder                     |
 | Représentation d'un processus       | Quentin   | State                       |
 | Limitation du temps d’exécution d’un processus     | Quentin   | Decorateur                  |
-| Limitation de la mémoire d’un processus    | Quentin   |          Stratégie                   |
+| Limitation de la mémoire d’un processus    | Quentin   |          Decorateur                   |
 | Compilation d’un programme C               | Bylel     |             Stratégie                |
 | Compilation d’un programme C++               | Bylel     |            Stratégie                 |
 | Compilation d’un programme Java               | Bylel     |            Stratégie                 |
