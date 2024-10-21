@@ -61,12 +61,45 @@ class Judge {
     + evaluate(sourceFile: String): void
 }
 
+interface IExecutor {
++ executeProgram(): void
+  }
+
+class ExecutorC {
++ executeProgram(): void
+  }
+
+class ExecutorCPP {
++ executeProgram(): void
+  }
+
+class ExecutorJava {
++ executeProgram(): void
+  }
+
+class ExecutorPython {
++ executeProgram(): void
+  }
+
+class Context {
+- executor: Executor
++ setExecutor(e: Executor): void
++ execute(): void
+  }
+
 ' Relationships
 JavaCompiler --|> ICompiler
 CCompiler --|> ICompiler
 CPlusPlusCompiler --|> ICompiler
 PythonCompiler --|> ICompiler
 Judge --> ICompiler
+
+Context --> Executor
+Executor <|.. ExecutorC
+Executor <|.. ExecutorCPP
+Executor <|.. ExecutorJava
+Executor <|.. ExecutorPython
+
 @enduml
 
 ```
