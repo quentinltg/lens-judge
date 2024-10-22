@@ -5,7 +5,7 @@ public class TestCase {
     private String output;
 
     // Constructor
-    public void TestCase(String input, String output) {
+    public TestCase(String input, String output) {
         this.input = input;
         this.output = output;
     }

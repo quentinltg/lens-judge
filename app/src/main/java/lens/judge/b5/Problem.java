@@ -8,7 +8,7 @@ public class Problem {
     private int memoryLimit;
 
     // Constructor
-    public void Problem(List<TestCase> testCases, int timeLimit, int memoryLimit) {
+    public Problem(List<TestCase> testCases, int timeLimit, int memoryLimit) {
         this.testCases = testCases;
         this.timeLimit = timeLimit;
         this.memoryLimit = memoryLimit;
