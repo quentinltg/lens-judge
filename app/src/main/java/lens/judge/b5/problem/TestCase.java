@@ -1,4 +1,4 @@
-package lens.judge.b5;
+package lens.judge.b5.problem;
 
 public class TestCase {
     private String input;

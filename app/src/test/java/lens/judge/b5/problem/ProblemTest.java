@@ -1,4 +1,4 @@
-package lens.judge.b5;
+package lens.judge.b5.problem;
 
 import org.junit.Test;
 import java.util.ArrayList;
