@@ -4,13 +4,11 @@ public class TestCase {
     private String input;
     private String output;
 
-    // Constructor
     public TestCase(String input, String output) {
         this.input = input;
         this.output = output;
     }
 
-    // Getters and setters
     public String getInput() {
         return input;
     }

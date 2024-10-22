@@ -7,14 +7,12 @@ public class Problem {
     private int timeLimit;
     private int memoryLimit;
 
-    // Constructor
     public Problem(List<TestCase> testCases, int timeLimit, int memoryLimit) {
         this.testCases = testCases;
         this.timeLimit = timeLimit;
         this.memoryLimit = memoryLimit;
     }
 
-    // Getters and Setters
     public List<TestCase> getTestCases() {
         return testCases;
     }
@@ -44,11 +42,15 @@ public class Problem {
     }
 
     public void addTestCase(TestCase testCase) {
-        testCases.add(testCase);
+        if (testCases != null) {
+            testCases.add(testCase);
+        }
     }
 
     public void removeTestCase(TestCase testCase) {
-        testCases.remove(testCase);
+        if (testCases != null) {
+            testCases.remove(testCase);
+        }
     }
 
 }

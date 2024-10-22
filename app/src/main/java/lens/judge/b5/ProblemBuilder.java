@@ -2,34 +2,34 @@ package lens.judge.b5;
 
 import java.util.List;
 
-public class ProcessBuilder {
+public class ProblemBuilder {
     private List<TestCase> testCases;
     private int timeLimit;
     private int memoryLimit;
+    
+    private ProblemBuilder() {}
 
-    private ProcessBuilder() {}
-
-    public static ProcessBuilder newInstance() {
-        return new ProcessBuilder();
+    public static ProblemBuilder newInstance() {
+        return new ProblemBuilder();
     }
 
-    public ProcessBuilder withTestCases(List<TestCase> testCases) {
+    public ProblemBuilder withTestCases(List<TestCase> testCases) {
         this.testCases = testCases;
         return this;
     }
 
-    public ProcessBuilder withTimeLimit(int timeLimit) {
+    public ProblemBuilder withTimeLimit(int timeLimit) {
         this.timeLimit = timeLimit;
         return this;
     }
 
-    public ProcessBuilder withMemoryLimit(int memoryLimit) {
+    public ProblemBuilder withMemoryLimit(int memoryLimit) {
         this.memoryLimit = memoryLimit;
         return this;
     }
 
     public Problem build() {
-        return new Problem(this);
+        return new Problem(testCases, timeLimit, memoryLimit);
     }
 
     public List<TestCase> getTestCases() {
