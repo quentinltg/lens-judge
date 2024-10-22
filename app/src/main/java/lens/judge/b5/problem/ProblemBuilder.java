@@ -31,15 +31,4 @@ public class ProblemBuilder {
     public Problem build() {
         return new Problem(testCases, timeLimit, memoryLimit);
     }
-
-    public List<TestCase> getTestCases() {
-        return testCases;
-    }
-
-    public int getTimeLimit() {
-        return timeLimit;
-    }
-    public int getMemoryLimit() {
-        return memoryLimit;
-    }
 }
