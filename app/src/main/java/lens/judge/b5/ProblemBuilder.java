@@ -1,5 +1,7 @@
 package lens.judge.b5;
 
+import java.util.List;
+
 public class ProcessBuilder {
     private List<TestCase> testCases;
     private int timeLimit;
@@ -26,8 +28,8 @@ public class ProcessBuilder {
         return this;
     }
 
-    public Process build() {
-        return new Process(this);
+    public Problem build() {
+        return new Problem(this);
     }
 
     public List<TestCase> getTestCases() {
