@@ -42,4 +42,13 @@ public class Problem {
     public Iterator<TestCase> iterator() {
         return testCases.iterator();
     }
+
+    public void addTestCase(TestCase testCase) {
+        testCases.add(testCase);
+    }
+
+    public void removeTestCase(TestCase testCase) {
+        testCases.remove(testCase);
+    }
+
 }
