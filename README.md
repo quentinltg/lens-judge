@@ -258,7 +258,7 @@ class ProblemBuilder {
 }
 
 ' Classe Problem implémentant Iterable<TestCase>
-class Problem implements Iterable<TestCase> {
+class Problem implements Iterable {
 	- testCases : List<TestCase>
 	- timeLimit : int
 	- memoryLimit : int
