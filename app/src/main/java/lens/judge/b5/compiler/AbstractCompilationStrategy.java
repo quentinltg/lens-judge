@@ -1,7 +1,7 @@
 package lens.judge.b5.compiler;
 
-import lens.judge.b5.process.IProcess;
-import lens.judge.b5.process.ProcessAdapter;
+import lens.judge.b5.Process.IProcess;
+import lens.judge.b5.Process.ProcessAdapter;
 
 public abstract class AbstractCompilationStrategy implements ICompilationStrategy {
 
@@ -17,12 +17,12 @@ public abstract class AbstractCompilationStrategy implements ICompilationStrateg
     protected void executeCommand(String command) {
         try {
             ProcessBuilder builder = new ProcessBuilder(command.split(" "));
-            ProcessAdapter process = new ProcessAdapter(builder);
+            ProcessAdapter process = new ProcessAdapter(String.valueOf(builder));
             process.start();
             process.stop();
 
-            if (!process.getErrors().isEmpty()) {
-                System.out.println("Compilation Errors: " + process.getErrors());
+            if (!process.getErrorOutput().isEmpty()) {
+                System.out.println("Compilation Errors: " + process.getErrorOutput());
             }
         } catch (Exception e) {
             e.printStackTrace();
