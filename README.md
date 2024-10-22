@@ -231,3 +231,135 @@ CompositeProblem --> IProblemComponent : <<Implements>>
 
 ```
 
+Diagramme (Dernière MAJ : 22/10/23 13:03)
+
+```plantuml
+@startuml
+' Classe TestCase
+class TestCase {
+	- input : String
+	- output : String
+	+ getInput() : String
+	+ setInput(input : String) : void
+	+ getOutput() : String
+	+ setOutput(output : String) : void
+}
+
+' Classe ProblemBuilder (pattern builder avec newInstance)
+class ProblemBuilder {
+	- testCases : List<TestCase>
+	- timeLimit : int
+	- memoryLimit : int
+	+ newInstance() : ProblemBuilder
+	+ withTestCases(testCases : List<TestCase>) : ProblemBuilder
+	+ withTimeLimit(timeLimit : int) : ProblemBuilder
+	+ withMemoryLimit(memoryLimit : int) : ProblemBuilder
+	+ build() : Problem
+}
+
+' Classe Problem implémentant Iterable<TestCase>
+class Problem implements Iterable<TestCase> {
+	- testCases : List<TestCase>
+	- timeLimit : int
+	- memoryLimit : int
+	+ getTestCases() : List<TestCase>
+	+ setTestCases(testCases : List<TestCase>) : void
+	+ getTimeLimit() : int
+	+ setTimeLimit(timeLimit : int) : void
+	+ getMemoryLimit() : int
+	+ setMemoryLimit(memoryLimit : int) : void
+	+ iterator() : Iterator<TestCase>
+	+ addTestCase(testCase : TestCase) : void
+	+ removeTestCase(testCase : TestCase) : void
+}
+
+' Interface IProcess
+interface IProcess {
+	+ getOutput() : String
++ getErrors() : List<String>
+	+ start() : void
+	+ stop() : void
+}
+
+' Classe ProcessAdapter implements IProcess
+class ProcessAdapter implements IProcess {
+	- processBuilder : ProcessBuilder
+	- process : Process
+	+ start() : void
+	+ stop() : void
+	+ getOutput() : String
+}
+
+' Classe abstraite ProcessDecorator
+abstract class ProcessDecorator implements IProcess {
+	- wrappedProcess : IProcess
+	+ start() : void
+	+ stop() : void
+	+ getOutput() : String
+}
+
+' Classe TimeLimitDecorator étendant ProcessDecorator
+class TimeLimitDecorator extends ProcessDecorator {
+	- timeLimit : int
+	- timer : Timer
+	+ start() : void
+	+ stop() : void
+	+ checkTimeLimit() : void
+}
+
+' Classe MemoryLimitDecorator étendant ProcessDecorator
+class MemoryLimitDecorator extends ProcessDecorator {
+	- memoryLimit : int
+	+ start() : void
+	+ stop() : void
+	+ checkMemoryLimit() : void
+}
+
+TestCase --> ProblemBuilder
+TestCase --> Problem
+
+
+interface CompilationStrategy {
+    +isCompatible(String sourceFile) : boolean
+    +getBinaryName(String sourceFile) : String
+    +compile(String sourceFile) : void
+}
+
+abstract class AbstractCompilationStrategy implements CompilationStrategy {
+    +compile(String sourceFile) : void
+    #getCompileCommand(String sourceFile, String binaryName) : String
+    #executeCommand(String command) : void
+    +isCompatible(String sourceFile) : boolean
+    +getBinaryName(String sourceFile) : String
+}
+
+class CCompilationStrategy {
+    +isCompatible(String sourceFile) : boolean
+    +getBinaryName(String sourceFile) : String
+    +getCompileCommand(String sourceFile, String binaryName) : String
+}
+
+class CppCompilationStrategy {
+    +isCompatible(String sourceFile) : boolean
+    +getBinaryName(String sourceFile) : String
+    +getCompileCommand(String sourceFile, String binaryName) : String
+}
+
+class JavaCompilationStrategy {
+    +isCompatible(String sourceFile) : boolean
+    +getBinaryName(String sourceFile) : String
+    +getCompileCommand(String sourceFile, String binaryName) : String
+}
+
+class CompilerContext {
+    -strategy : CompilationStrategy
+    +setCompilationStrategy(CompilationStrategy strategy) : void
+    +compile(String sourceFile) : void
+}
+
+CompilerContext --> CompilationStrategy
+AbstractCompilationStrategy <|-- CCompilationStrategy
+AbstractCompilationStrategy <|-- CppCompilationStrategy
+AbstractCompilationStrategy <|-- JavaCompilationStrategy
+@enduml
+```
