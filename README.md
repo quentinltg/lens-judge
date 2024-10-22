@@ -35,82 +35,75 @@
 ```plantuml
 @startuml
 
+class SingleProblem  {
+    - name: String
+    - language: String
+    - testCases: List<String>
+    + executeTests()
+}
 
- class TestCase {
-        - input: String
-        - expectedOutput: String
-        - validationCriteria: String
-        + validate(): boolean
-    }
+class CompositeProblem  {
+    - name: String
+    - problems: List<IProblemComponent>
+    + add(component: IProblemComponent)
+    + remove(component: IProblemComponent)
+    + getChild(index: int): IProblemComponent
+}
 
-    interface IProblemComponent {
-        + add(component: IProblemComponent)
-        + remove(component: IProblemComponent)
-        + getChild(index: int): IProblemComponent
-    }
+interface IProblemComponent {
+    + add(component: IProblemComponent)
+    + remove(component: IProblemComponent)
+    + getChild(index: int): IProblemComponent
+}
 
-    class SingleProblem implements IProblemComponent {
-        - name: String
-        - language: String
-        - testCases: List<TestCase>
-        + executeTests()
-    }
 
-    class CompositeProblem implements IProblemComponent {
-        - name: String
-        - problems: List<IProblemComponent>
-        + add(component: IProblemComponent)
-        + remove(component: IProblemComponent)
-        + getChild(index: int): IProblemComponent
-    }
+class ProblemBuilder {
+    - name: String
+    - language: String
+    - testCases: List<String>
+    + setName(name: String): ProblemBuilder
+    + setLanguage(lang: String): ProblemBuilder
+    + addTestCase(testCase: String): ProblemBuilder
+    + build(): IProblemComponent
+}
 
-    class ProblemBuilder {
-        - name: String
-        - language: String
-        - testCases: List<TestCase>
-        + setName(name: String): ProblemBuilder
-        + setLanguage(lang: String): ProblemBuilder
-        + addTestCase(testCase: TestCase): ProblemBuilder
-        + build(): IProblemComponent
-    }
+class Process {
+    - state: IProcessState
+    + setState(state: IProcessState)
+    + execute()
+}
 
-    class Process {
-        - state: IProcessState
-        + setState(state: IProcessState)
-        + execute()
-    }
+interface IProcessState {
+    + handle()
+}
 
-    interface IProcessState {
-        + handle()
-    }
+class RunningState {
+    + handle()
+}
 
-    class RunningState implements IProcessState {
-        + handle()
-    }
+class WaitingState {
+    + handle()
+}
 
-    class WaitingState implements IProcessState {
-        + handle()
-    }
+class TerminatedState {
+    + handle()
+}
 
-    class TerminatedState implements IProcessState {
-        + handle()
-    }
+interface IProcessDecorator {
+    + execute()
+}
 
-    interface IProcessDecorator {
-        + execute()
-    }
+class TimedProcessDecorator {
+    - process: Process
+    - timeout: long
+    + execute()
+}
 
-    class TimedProcessDecorator implements IProcessDecorator {
-        - process: Process
-        - timeout: long
-        + execute()
-    }
-
-    class MemoryLimitedProcessDecorator implements IProcessDecorator {
-        - process: Process
-        - memoryLimit: long
-        + execute()
-    }
+class MemoryLimitedProcessDecorator {
+    - process: Process
+    - memoryLimit: long
+    + execute()
+}
 
 ' Compiler Interface
 interface ICompiler {
@@ -118,132 +111,121 @@ interface ICompiler {
 }
 
 ' Specific implementations for each language
-class JavaCompiler implements ICompiler {
+class JavaCompiler {
     + compile(sourceFile: String): void
 }
-class CCompiler implements ICompiler {
+class CCompiler {
     + compile(sourceFile: String): void
 }
-class CPlusPlusCompiler implements ICompiler {
+class CPPCompiler  {
     + compile(sourceFile: String): void
 }
-class PythonCompiler implements ICompiler {
+class PythonCompiler {
     + compile(sourceFile: String): void
 }
 
 ' Judge uses a compiler
 class Judge {
     - ICompiler compiler
+    - IExecutor: executor
+    - IVerify: verify
     + setCompiler(ICompiler): void
     + evaluate(sourceFile: String): void
+    + setExecutor(e: Executor): void
+    + execute(): void
+    + setVerifier(verifier: IVerify)
+    + verify(solution, expected): bool
 }
 
 interface IExecutor {
-+ executeProgram(): void
-  }
+    + executeProgram(): void
+}
 
 class ExecutorC {
-+ executeProgram(): void
-  }
+    + executeProgram(): void
+}
 
 class ExecutorCPP {
-+ executeProgram(): void
-  }
+    + executeProgram(): void
+}
 
 class ExecutorJava {
-+ executeProgram(): void
-  }
+    + executeProgram(): void
+}
 
 class ExecutorPython {
-+ executeProgram(): void
-  }
+    + executeProgram(): void
+}
 
-class Context {
-- executor: Executor
-+ setExecutor(e: Executor): void
-+ execute(): void
-  }
-  
 interface IVerify {
-    + verify(solution, expected) : bool
+    + verify(solution, expected): bool
 }
-
-class VerificationContext {
-    - verify: Verify
-    + setVerifier(verifier: Verifier)
-    + verify(solution, expected) : bool
-}
-
 
 class StrictVerify {
-    + verify(solution, expected) : bool
+    + verify(solution, expected): bool
 }
 
 class RealToleranceVerify {
-    + verify(solution, expected) : bool
+    + verify(solution, expected): bool
 }
-
 
 class CaseInsensitiveVerify {
-    + verify(solution, expected) : bool
+    + verify(solution, expected): bool
 }
-
 
 class SpaceToleranceVerify {
-    + verify(solution, expected) : bool
+    + verify(solution, expected): bool
 }
-
 
 class OrderToleranceVerify {
-    + verify(solution, expected) : bool
+    + verify(solution, expected): bool
 }
-
 
 class MultipleSolutionsVerify {
-    + verify(solution, expected) : bool
+    + verify(solution, expected): bool
 }
 
-
 class ExternalProgramVerify {
-    + verify(solution, expected) : bool
+    + verify(solution, expected): bool
 }
 
 ' Relationships
 
-VerificationContext --> IVerify
-
 IVerify <|-- StrictVerify
-
 IVerify <|-- RealToleranceVerify
-
 IVerify <|-- ExternalProgramVerify
-
 IVerify <|-- SpaceToleranceVerify
-
 IVerify <|-- CaseInsensitiveVerify
-
 IVerify <|-- OrderToleranceVerify
-
 IVerify <|-- MultipleSolutionsVerify
 
+JavaCompiler --|> ICompiler  : <<Implements>>
+CCompiler --|> ICompiler : <<Implements>>
+CPPCompiler --|> ICompiler : <<Implements>>
+PythonCompiler --|> ICompiler : <<Implements>>
+Judge --> ICompiler : <<Use>>
+Judge --> Process : <<Manage>>
+Judge --> IVerify : <<Use>>
+Judge --> IExecutor : <<Use>>
+IExecutor <|.. ExecutorC : <<Implements>>
+IExecutor <|.. ExecutorCPP : <<Implements>>
+IExecutor <|.. ExecutorJava : <<Implements>>
+IExecutor <|.. ExecutorPython : <<Implements>>
 
+IProcessDecorator <|.. TimedProcessDecorator : <<Decorate>>
+IProcessDecorator <|.. MemoryLimitedProcessDecorator : <<Decorate>>
+Process *-- IProcessDecorator : <<Decorate>>
+Process *-- IProcessState : <<State>>
+IProcessState <|.. RunningState  : <<Implements>>
+IProcessState <|.. WaitingState : <<Implements>>
+IProcessState <|.. TerminatedState : <<Implements>>
 
+ProblemBuilder --> SingleProblem : <<Created>>
+ProblemBuilder --> CompositeProblem : <<Created>>
+ProblemBuilder <-- Judge : <<Use>>
 
-
-JavaCompiler --|> ICompiler
-CCompiler --|> ICompiler
-CPlusPlusCompiler --|> ICompiler
-PythonCompiler --|> ICompiler
-Judge --> ICompiler
-
-Context --> IExecutor
-IExecutor <|.. ExecutorC
-IExecutor <|.. ExecutorCPP
-IExecutor <|.. ExecutorJava
-IExecutor <|.. ExecutorPython
-
-
-
+SingleProblem --> IProblemComponent : <<Implements>>
+CompositeProblem --> IProblemComponent : <<Implements>>
 
 @enduml
 
