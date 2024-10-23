@@ -1,5 +1,8 @@
 package lens.judge.b5.verifier;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * The StrictComparer class implements the Verifier interface.
  * It provides a strict comparison of the output and expected strings.
@@ -15,22 +18,32 @@ public class StrictComparer implements Verifier {
      */
     @Override
     public boolean verify(String output, String expected) {
-        return output.equals(expected);
+        List<String> outputLines = readLines(output);
+        List<String> expectedLines = readLines(expected);
+
+        if (outputLines.size() != expectedLines.size()) {
+            return false;
+        }
+
+        for (int i = 0; i < outputLines.size(); i++) {
+            if (!outputLines.get(i).equals(expectedLines.get(i))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
-     * Counts the number of lines in the given output string.
+     * Reads the lines from the given string.
      *
-     * @param output the output string whose lines are to be counted
-     * @return the number of lines in the output string
+     * @param text the string to be read
+     * @return a list of lines from the string
      */
-    private int countLines(String output) {
-        int count = 0;
-        for (int i = 0; i < output.length(); i++) {
-            if (output.charAt(i) == '\n') {
-                count++;
-            }
+    private List<String> readLines(String text) {
+        if (text == null || text.isEmpty()) {
+            return List.of();
         }
-        return count;
+        return Arrays.asList(text.split("\n"));
     }
 }
