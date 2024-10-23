@@ -1,4 +1,4 @@
-package lens.judge.b5.Process;
+package lens.judge.b5.process;
 
 import java.io.InputStream;
 import java.io.OutputStream;
