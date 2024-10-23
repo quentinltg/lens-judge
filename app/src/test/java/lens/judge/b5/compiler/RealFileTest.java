@@ -28,29 +28,17 @@ public class RealFileTest {
     @Test
     public void compileJavaFile() throws IOException, InterruptedException {
         JavaCompilationStrategy strategy = new JavaCompilationStrategy();
-        String command = strategy.getCompileCommand(JAVA_FILE, BIN_DIR + "test.class");
-
-        // Debug: Afficher la commande exécutée
+        String command = strategy.getCompileCommand(JAVA_FILE, BIN_DIR + "Test.class");
         System.out.println("Executing Java compile command: " + command);
-
         Process process = Runtime.getRuntime().exec(command);
-
-        // Debug: Log de la sortie du processus (normal et erreur)
         logProcessOutput(process);
-
         int exitCode = process.waitFor();
-
-        // Debug: Afficher le code de sortie
         System.out.println("Java compile process exit code: " + exitCode);
-
-        // Debug: Vérifier si le fichier .class a été créé
-        System.out.println("Checking if compiled Java class exists: " + BIN_DIR + "test.class");
-
-        boolean classFileExists = Files.exists(Paths.get(BIN_DIR + "test.class"));
+        System.out.println("Checking if compiled Java class exists: " + BIN_DIR + "Test.class");
+        boolean classFileExists = Files.exists(Paths.get(BIN_DIR + "Test.class"));
         System.out.println("Class file exists: " + classFileExists);
-
-        assertTrue(classFileExists);
-        assertTrue(exitCode == 0);
+        assertTrue("Class file should exist", classFileExists);
+        assertTrue("Exit code should be 0", exitCode == 0);
     }
     @Test
     public void compileCFile() throws IOException, InterruptedException {
