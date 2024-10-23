@@ -55,6 +55,7 @@ public class StrictComparer implements Verifier {
         }
     }
 
+
     /**
      * Reads the lines from the given string.
      *
