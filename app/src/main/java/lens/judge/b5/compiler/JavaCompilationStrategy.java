@@ -14,6 +14,6 @@ public class JavaCompilationStrategy extends AbstractCompilationStrategy {
 
     @Override
     protected String getCompileCommand(String sourceFile, String binaryName) {
-        return "javac " + sourceFile;
+        return "javac -d bin/ " + sourceFile;
     }
 }
