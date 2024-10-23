@@ -1,11 +1,10 @@
 package lens.judge.b5.verifier;
 
-import lens.judge.b5.verifier.PrecisionToleranceComparer;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PrecisionToleranceTest {
+public class VerifierTest {
 
     @Test
     void verifyReturnsTrueWhenValuesAreWithinTolerance() {
