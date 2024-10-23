@@ -1,6 +1,5 @@
 package lens.judge.b5.execution;
 
-import lens.judge.b5.Process.IProcess;
 import lens.judge.b5.Process.ProcessAdapter;
 
 public class JavaExecutionStrategy implements IExecutionStrategy {
@@ -19,7 +18,6 @@ public class JavaExecutionStrategy implements IExecutionStrategy {
     public void execute() {
         System.out.println("Executing Java code...");
         process = new ProcessAdapter("java", "-cp", "bin", className);
-        //process = new ProcessAdapter("pwd");
         process.start();
     }
 
