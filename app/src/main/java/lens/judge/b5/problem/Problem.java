@@ -1,8 +1,9 @@
 package lens.judge.b5.problem;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Problem {
+public class Problem implements Iterable<TestCase> {
     private List<TestCase> testCases;
     private int timeLimit;
     private int memoryLimit;
@@ -11,6 +12,12 @@ public class Problem {
         this.testCases = testCases;
         this.timeLimit = timeLimit;
         this.memoryLimit = memoryLimit;
+    }
+
+    public Problem() {
+        this.testCases = new ArrayList<>();
+        this.timeLimit = 0;
+        this.memoryLimit = 0;
     }
 
     public List<TestCase> getTestCases() {

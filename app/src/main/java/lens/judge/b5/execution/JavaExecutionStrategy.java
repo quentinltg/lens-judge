@@ -17,9 +17,8 @@ public class JavaExecutionStrategy implements IExecutionStrategy {
     }
 
     public void execute() {
-        System.out.println("Executing Java code...");
-        process = new ProcessAdapter("java", "-cp", "bin", className);
-        //process = new ProcessAdapter("pwd");
+        System.out.println("Executing Java code : java -cp app/bin " + className);
+        process = new ProcessAdapter("java", "-cp", "app/bin", className);
         process.start();
     }
 

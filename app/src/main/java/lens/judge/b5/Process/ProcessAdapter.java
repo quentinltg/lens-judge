@@ -20,6 +20,7 @@ public class ProcessAdapter implements IProcess {
             process = processBuilder.start();
         } catch (IOException e) {
             e.printStackTrace();
+            process = null;
         }
     }
 
@@ -73,7 +74,7 @@ public class ProcessAdapter implements IProcess {
                 builder.append(line).append(System.lineSeparator());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error capturing stream: " + e.getMessage());
         }
         return builder.toString();
     }
