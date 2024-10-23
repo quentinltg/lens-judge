@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class RealFileTest {
@@ -25,7 +26,7 @@ public class RealFileTest {
     }
 
     @Test
-    public void compileJavaFile() throws IOException, InterruptedException {
+    public void compileJavaFile() throws InterruptedException {
         JavaCompilationStrategy strategy = new JavaCompilationStrategy();
         String command = strategy.getCompileCommand(JAVA_FILE, BIN_DIR + "Test.class");
         System.out.println("Executing Java compile command: " + command);
@@ -38,11 +39,11 @@ public class RealFileTest {
         boolean classFileExists = Files.exists(Paths.get(BIN_DIR + "Test.class"));
         System.out.println("Class file exists: " + classFileExists);
         assertTrue("Class file should exist", classFileExists);
-        assertTrue("Exit code should be 0", exitCode == 0);
+        assertEquals("Exit code should be 0", 0, exitCode);
     }
 
     @Test
-    public void compileCFile() throws IOException, InterruptedException {
+    public void compileCFile() throws InterruptedException {
         CCompilationStrategy strategy = new CCompilationStrategy();
         String command = strategy.getCompileCommand(C_FILE, BIN_DIR + "testC");
         ProcessAdapter process = new ProcessAdapter(command.split(" "));
@@ -50,11 +51,11 @@ public class RealFileTest {
         int exitCode = process.waitFor();
         strategy.getPath(BIN_DIR + "testC");
         assertTrue(Files.exists(Paths.get(BIN_DIR + "testC")));
-        assertTrue(exitCode == 0);
+        assertEquals(0, exitCode);
     }
 
     @Test
-    public void compileCppFile() throws IOException, InterruptedException {
+    public void compileCppFile() throws InterruptedException {
         CppCompilationStrategy strategy = new CppCompilationStrategy();
         String command = strategy.getCompileCommand(CPP_FILE, BIN_DIR + "testCpp");
         ProcessAdapter process = new ProcessAdapter(command.split(" "));
@@ -62,21 +63,20 @@ public class RealFileTest {
         int exitCode = process.waitFor();
         strategy.getPath(BIN_DIR + "testCpp");
         assertTrue(Files.exists(Paths.get(BIN_DIR + "testCpp")));
-        assertTrue(exitCode == 0);
+        assertEquals(0, exitCode);
     }
 
     @Test
-    public void compilePythonFile() throws IOException, InterruptedException {
+    public void compilePythonFile() throws InterruptedException {
         PythonCompilationStrategy strategy = new PythonCompilationStrategy();
         String command = strategy.getCompileCommand(PYTHON_FILE, null);
         ProcessAdapter process = new ProcessAdapter(command.split(" "));
         process.start();
         int exitCode = process.waitFor();
-        //assertTrue(Files.exists(Paths.get(PYTHON_FILE + "c")));
-        assertTrue(exitCode == 0);
+        assertEquals(0, exitCode);
     }
 
-    private void logProcessOutput(ProcessAdapter process) throws IOException {
+    private void logProcessOutput(ProcessAdapter process) {
         System.out.println(process.getOutput());
         System.err.println(process.getErrorOutput());
     }
