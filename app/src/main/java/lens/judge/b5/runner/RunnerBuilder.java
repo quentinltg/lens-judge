@@ -57,10 +57,10 @@ public class RunnerBuilder {
           this.compilationStrategy = new CCompilationStrategy();
           this.executionStrategy = new CExecutionStrategy("test");
           break;
-//      case "cpp":
-//          this.compilationStrategy = new CppCompilationStrategy();
-//          this.executionStrategy = new CppExecutionStrategy(sourceFile);
-//          break;
+      case ".cpp":
+          this.compilationStrategy = new CppCompilationStrategy();
+          this.executionStrategy = new CExecutionStrategy("test");
+          break;
             default:
                 throw new IllegalArgumentException("Unsupported file type: " + extension);
         }

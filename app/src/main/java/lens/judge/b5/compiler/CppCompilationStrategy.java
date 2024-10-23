@@ -17,7 +17,8 @@ public class CppCompilationStrategy extends AbstractCompilationStrategy {
 
     @Override
     protected String getCompileCommand(String sourceFile, String binaryName) {
-        return "g++ -x c++ -Wall -O2 -static -pipe -o " + binaryName + " " + sourceFile;
+        System.out.println("Compiling C++ code : g++ -x c++ -Wall -O2 -static -pipe -o app/bin/" + binaryName + " app/src/test/resources/" + sourceFile);
+        return "g++ -x c++ -Wall -O2 -static -pipe -o app/bin/" + binaryName + " app/src/test/resources/" + sourceFile;
     }
 
     public void getPath(String binaryName) {
