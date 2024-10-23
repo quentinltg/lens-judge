@@ -16,7 +16,10 @@ public class Main {
 
     public static void main(String[] args) {
         // Utilisation du chemin absolu du fichier source Java
-        String sourceFile = "app/src/test/resources/Test.java";
+        // String sourceFile = "app/src/test/resources/Test.java";
+        String sourceFile = "test.c";
+        // String sourceFile = "app/src/test/resources/test.cpp";
+        //String sourceFile = "app/src/test/resources/test.py";
 
         // Créer un problème avec un TestCase
         TestCase testCase = new TestCase("input1", "expectedOutput1");

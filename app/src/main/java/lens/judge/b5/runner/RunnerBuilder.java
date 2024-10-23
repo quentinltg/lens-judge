@@ -5,6 +5,7 @@ import lens.judge.b5.compiler.CCompilationStrategy;
 import lens.judge.b5.compiler.CppCompilationStrategy;
 import lens.judge.b5.compiler.ICompilationStrategy;
 import lens.judge.b5.compiler.JavaCompilationStrategy;
+import lens.judge.b5.execution.CExecutionStrategy;
 import lens.judge.b5.execution.IExecutionStrategy;
 import lens.judge.b5.execution.JavaExecutionStrategy;
 import lens.judge.b5.problem.Problem;
@@ -52,10 +53,10 @@ public class RunnerBuilder {
                 // Indiquer le chemin du fichier class compilé
                 this.executionStrategy = new JavaExecutionStrategy("Test");
                 break;
-//      case "c":
-//          this.compilationStrategy = new CCompilationStrategy();
-//          this.executionStrategy = new CExecutionStrategy(sourceFile);
-//          break;
+      case ".c":
+          this.compilationStrategy = new CCompilationStrategy();
+          this.executionStrategy = new CExecutionStrategy("test");
+          break;
 //      case "cpp":
 //          this.compilationStrategy = new CppCompilationStrategy();
 //          this.executionStrategy = new CppExecutionStrategy(sourceFile);

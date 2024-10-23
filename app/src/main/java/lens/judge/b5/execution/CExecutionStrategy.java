@@ -16,8 +16,8 @@ public class CExecutionStrategy implements IExecutionStrategy {
     }
 
     public void execute() {
-        System.out.println("Executing C/C++ code...");
-        process = new ProcessAdapter("gcc " + binaryName);
+        System.out.println("Executing C/C++ code : app/bin/" + binaryName);
+        process = new ProcessAdapter("app/bin/" + binaryName);
         process.start();
     }
 
