@@ -16,8 +16,8 @@ public class PythonExecutionStrategy implements IExecutionStrategy {
     }
 
     public void execute() {
-        System.out.println("Executing Python code...");
-        process = new ProcessAdapter("python3 " + scriptName);
+        System.out.println("Executing Python code : python3 " + scriptName);
+        process = new ProcessAdapter("python3", scriptName);
         process.start();
     }
 

@@ -1,13 +1,11 @@
 package lens.judge.b5.runner;
 
 import lens.judge.b5.Process.ProcessAdapter;
-import lens.judge.b5.compiler.CCompilationStrategy;
-import lens.judge.b5.compiler.CppCompilationStrategy;
-import lens.judge.b5.compiler.ICompilationStrategy;
-import lens.judge.b5.compiler.JavaCompilationStrategy;
+import lens.judge.b5.compiler.*;
 import lens.judge.b5.execution.CExecutionStrategy;
 import lens.judge.b5.execution.IExecutionStrategy;
 import lens.judge.b5.execution.JavaExecutionStrategy;
+import lens.judge.b5.execution.PythonExecutionStrategy;
 import lens.judge.b5.problem.Problem;
 import lens.judge.b5.problem.TestCase;
 
@@ -53,18 +51,21 @@ public class RunnerBuilder {
                 // Indiquer le chemin du fichier class compilé
                 this.executionStrategy = new JavaExecutionStrategy("Test");
                 break;
-      case ".c":
-          this.compilationStrategy = new CCompilationStrategy();
-          this.executionStrategy = new CExecutionStrategy("test");
-          break;
-      case ".cpp":
-          this.compilationStrategy = new CppCompilationStrategy();
-          this.executionStrategy = new CExecutionStrategy("test");
-          break;
+            case ".c":
+                this.compilationStrategy = new CCompilationStrategy();
+                this.executionStrategy = new CExecutionStrategy("test");
+                break;
+            case ".cpp":
+                this.compilationStrategy = new CppCompilationStrategy();
+                this.executionStrategy = new CExecutionStrategy("test");
+                break;
+            case ".py":
+                this.compilationStrategy = new PythonCompilationStrategy();
+                this.executionStrategy = new PythonExecutionStrategy(sourceFile);
+                break;
             default:
                 throw new IllegalArgumentException("Unsupported file type: " + extension);
         }
-
         return this;
     }
 
