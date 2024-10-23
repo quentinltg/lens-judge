@@ -14,7 +14,7 @@ public class JavaCompilationStrategy extends AbstractCompilationStrategy {
 
     @Override
     public String getCompileCommand(String sourceFile, String binaryName) {
-        System.out.println("Current working directory: " + System.getProperty("user.dir"));
-        return "javac -d app/bin/ " + sourceFile;
+        System.out.println("Compiling Java code : javac -d app/bin/ " + sourceFile);
+        return "javac -d app/bin/ " + sourceFile + ".java";
     }
 }

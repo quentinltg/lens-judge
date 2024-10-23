@@ -16,10 +16,11 @@ public abstract class AbstractCompilationStrategy implements ICompilationStrateg
 
     protected void executeCommand(String command) {
         try {
-            ProcessBuilder builder = new ProcessBuilder(command.split(" "));
-            ProcessAdapter process = new ProcessAdapter(String.valueOf(builder));
+//            ProcessBuilder builder = new ProcessBuilder(command.split(" "));
+//            ProcessAdapter process = new ProcessAdapter(String.valueOf(builder));
+            ProcessAdapter process = new ProcessAdapter(command.split(" "));
             process.start();
-            process.stop();
+            process.waitFor();
 
             if (!process.getErrorOutput().isEmpty()) {
                 System.out.println("Compilation Errors: " + process.getErrorOutput());
