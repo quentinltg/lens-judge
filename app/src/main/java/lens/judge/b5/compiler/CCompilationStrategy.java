@@ -1,6 +1,5 @@
 package lens.judge.b5.compiler;
 
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
