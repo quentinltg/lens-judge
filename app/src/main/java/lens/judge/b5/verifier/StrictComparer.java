@@ -1,5 +1,8 @@
 package lens.judge.b5.verifier;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,6 +35,24 @@ public class StrictComparer implements Verifier {
         }
 
         return true;
+    }
+
+    /**
+     * Verifies the output file against the expected file using strict equality.
+     *
+     * @param outputFile the output file to be verified
+     * @param expectedFile the expected file to compare against
+     * @return true if the output file matches the expected file exactly, false otherwise
+     */
+    @Override
+    public boolean verify(File outputFile, File expectedFile) {
+        try {
+            String output = new String(Files.readAllBytes(outputFile.toPath()));
+            String expected = new String(Files.readAllBytes(expectedFile.toPath()));
+            return verify(output, expected);
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading files", e);
+        }
     }
 
     /**

@@ -1,6 +1,9 @@
 package lens.judge.b5.verifier;
 
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -45,7 +48,7 @@ public class VerifierTest {
     void verifyReturnsTrueWhenBothValuesAreNull() {
         PrecisionToleranceComparer comparer = new PrecisionToleranceComparer();
         comparer.setTolerance(0.1f);
-        assertTrue(comparer.verify(null, null));
+        assertTrue(comparer.verify((File) null, null));
     }
 
     @Test

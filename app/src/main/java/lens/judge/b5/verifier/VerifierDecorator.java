@@ -1,5 +1,7 @@
 package lens.judge.b5.verifier;
 
+import java.io.File;
+
 /**
  * The VerifierDecorator class is an abstract class that implements the Verifier interface.
  * It serves as a base class for other decorators that add additional functionality
@@ -29,6 +31,6 @@ public abstract class VerifierDecorator implements Verifier {
      */
     @Override
     public boolean verify(String output, String expected) {
-        return wrappedVerifier.verify(output, expected);
+        return wrappedVerifier.verify(new File(output), new File(expected));
     }
 }

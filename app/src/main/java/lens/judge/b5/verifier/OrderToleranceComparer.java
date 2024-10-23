@@ -1,23 +1,24 @@
 package lens.judge.b5.verifier;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * The OrderToleranceComparer class implements the Verifier interface.
- * It provides a comparison of the output and expected values by checking if all expected lines
- * are present in the output lines, considering the order tolerance.
- */
 public class OrderToleranceComparer implements Verifier {
 
-    /**
-     * Verifies the output against the expected value by checking if all expected lines
-     * are present in the output lines, considering the order tolerance.
-     *
-     * @param output the output string to be verified
-     * @param expected the expected string to compare against
-     * @return true if all expected lines are present in the output lines in the correct order, false otherwise
-     */
+    @Override
+    public boolean verify(File outputFile, File expectedFile) {
+        try {
+            String output = new String(Files.readAllBytes(outputFile.toPath()));
+            String expected = new String(Files.readAllBytes(expectedFile.toPath()));
+            return verify(output, expected);
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading files", e);
+        }
+    }
+
     @Override
     public boolean verify(String output, String expected) {
         List<String> outputLines = readExpectedLines(output);
@@ -32,12 +33,6 @@ public class OrderToleranceComparer implements Verifier {
         return expectedIndex == expectedLines.size();
     }
 
-    /**
-     * Reads the expected lines from the given string.
-     *
-     * @param expected the expected string to be read
-     * @return a list of lines from the expected string
-     */
     private List<String> readExpectedLines(String expected) {
         if (expected == null || expected.isEmpty()) {
             return List.of();
@@ -45,13 +40,6 @@ public class OrderToleranceComparer implements Verifier {
         return Arrays.asList(expected.split("\n"));
     }
 
-    /**
-     * Checks if a line is present in the given collection.
-     *
-     * @param line the line to be checked
-     * @param collection the collection of strings to check against
-     * @return true if the line is present in the collection, false otherwise
-     */
     private boolean isLineInCollection(String line, List<String> collection) {
         return collection.contains(line);
     }

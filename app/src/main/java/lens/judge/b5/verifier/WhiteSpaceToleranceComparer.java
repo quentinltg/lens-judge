@@ -1,5 +1,9 @@
 package lens.judge.b5.verifier;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+
 /**
  * The WhiteSpaceToleranceComparer class is a decorator for the Verifier interface.
  * It ensures that the comparison ignores extra spaces by normalizing the strings
@@ -28,6 +32,24 @@ public class WhiteSpaceToleranceComparer extends VerifierDecorator {
         String normalizedOutput = normalizeSpaces(output);
         String normalizedExpected = normalizeSpaces(expected);
         return super.verify(normalizedOutput, normalizedExpected);
+    }
+
+    /**
+     * Verifies the output file against the expected file after normalizing spaces.
+     *
+     * @param outputFile the output file to be verified
+     * @param expectedFile the expected file to compare against
+     * @return true if the normalized output matches the normalized expected file, false otherwise
+     */
+    @Override
+    public boolean verify(File outputFile, File expectedFile) {
+        try {
+            String output = new String(Files.readAllBytes(outputFile.toPath()));
+            String expected = new String(Files.readAllBytes(expectedFile.toPath()));
+            return verify(output, expected);
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading files", e);
+        }
     }
 
     /**

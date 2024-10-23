@@ -1,5 +1,6 @@
 package lens.judge.b5.problem;
 
+import lens.judge.b5.problem.TestCase;
 import lens.judge.b5.verifier.Verifier;
 import java.util.Iterator;
 import java.util.List;

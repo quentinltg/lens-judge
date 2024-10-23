@@ -1,19 +1,21 @@
 package lens.judge.b5.problem;
 
-public class TestCase {
-    private String output;
-    private String expected;
+import java.io.File;
 
-    public TestCase(String output, String expected) {
+public class TestCase {
+    private File output;
+    private File expected;
+
+    public TestCase(File output, File expected) {
         this.output = output;
         this.expected = expected;
     }
 
-    public String getOutput() {
+    public File getOutput() {
         return output;
     }
 
-    public String getExpected() {
+    public File getExpected() {
         return expected;
     }
 }
