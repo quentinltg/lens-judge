@@ -6,7 +6,7 @@ import java.io.OutputStream;
 public abstract class ProcessDecorator implements IProcess {
     protected IProcess decoratedProcess;
 
-    public ProcessDecorator(IProcess decoratedProcess) {
+    protected ProcessDecorator(IProcess decoratedProcess) {
         this.decoratedProcess = decoratedProcess;
     }
 
