@@ -1,9 +1,6 @@
 package lens.judge.b5.compiler;
 
 import org.junit.Test;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import static org.junit.Assert.*;
 
 
@@ -18,7 +15,7 @@ public class CompilationStrategyTests {
     @Test
     public void isNotCompatibleWithNonCFile() {
         CCompilationStrategy strategy = new CCompilationStrategy();
-        assertFalse(strategy.isCompatible("test.java"));
+        assertFalse(strategy.isCompatible("Test.java"));
     }
 
     @Test
@@ -42,7 +39,7 @@ public class CompilationStrategyTests {
     @Test
     public void isNotCompatibleWithNonCppFile() {
         CppCompilationStrategy strategy = new CppCompilationStrategy();
-        assertFalse(strategy.isCompatible("test.java"));
+        assertFalse(strategy.isCompatible("Test.java"));
     }
 
     @Test
@@ -60,7 +57,7 @@ public class CompilationStrategyTests {
     @Test
     public void isCompatibleWithJavaFile() {
         JavaCompilationStrategy strategy = new JavaCompilationStrategy();
-        assertTrue(strategy.isCompatible("test.java"));
+        assertTrue(strategy.isCompatible("Test.java"));
     }
 
     @Test
@@ -72,13 +69,13 @@ public class CompilationStrategyTests {
     @Test
     public void getBinaryNameForJavaFile() {
         JavaCompilationStrategy strategy = new JavaCompilationStrategy();
-        assertEquals("test.class", strategy.getBinaryName("test.java"));
+        assertEquals("test.class", strategy.getBinaryName("Test.java"));
     }
 
     @Test
     public void getCompileCommandForJavaFile() {
         JavaCompilationStrategy strategy = new JavaCompilationStrategy();
-        assertEquals("javac test.java", strategy.getCompileCommand("test.java", "test.class"));
+        assertEquals("javac Test.java", strategy.getCompileCommand("Test.java", "test.class"));
     }
 
     @Test
@@ -90,7 +87,7 @@ public class CompilationStrategyTests {
     @Test
     public void isNotCompatibleWithNonPythonFile() {
         PythonCompilationStrategy strategy = new PythonCompilationStrategy();
-        assertFalse(strategy.isCompatible("test.java"));
+        assertFalse(strategy.isCompatible("Test.java"));
     }
 
     @Test
