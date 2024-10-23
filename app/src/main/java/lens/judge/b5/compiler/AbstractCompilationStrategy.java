@@ -1,6 +1,6 @@
 package lens.judge.b5.compiler;
 
-import lens.judge.b5.Process.ProcessAdapter;
+import lens.judge.b5.process.ProcessAdapter;
 
 public abstract class AbstractCompilationStrategy implements ICompilationStrategy {
 
