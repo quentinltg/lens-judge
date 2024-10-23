@@ -15,8 +15,6 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Current working directory: " + System.getProperty("user.dir"));
-
         // Utilisation du chemin absolu du fichier source Java
         String sourceFile = "app/src/test/resources/Test.java";
 

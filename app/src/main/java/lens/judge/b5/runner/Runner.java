@@ -17,30 +17,35 @@ public class Runner {
     }
 
     public Verdict run() {
-        // 1. Compiler le programme
+         // 1. Compiler le programme
         try {
             compilationStrategy.compile(sourceFile);
         } catch (Exception e) {
-            System.out.println("Compilation failed.");
+            System.out.println("Compilation failed" + e.getMessage());
             return Verdict.COMPILATION_ERROR;
         }
 
         // 2. Exécuter le programme avec l'entrée du TestCase
         try {
             executionStrategy.execute();
-            if (executionStrategy.getProcess().getOutput() == null) {
-                throw new Exception();
+
+            // Récupération de la sortie et des erreurs
+            String output = executionStrategy.getProcess().getOutput();
+            String errorOutput = executionStrategy.getProcess().getErrorOutput();
+
+            if (!errorOutput.isEmpty()) {
+                System.out.println("Execution error: " + errorOutput);
+                return Verdict.RUNTIME_ERROR;
             }
+
+            // 3. Vérifier la sortie
+            System.out.println("Output: " + output);
+            return Verdict.ACCEPTED;
+
         } catch (Exception e) {
             System.out.println("Execution failed.");
             return Verdict.RUNTIME_ERROR;
         }
-
-        // 3. Afficher le résultat temporairement
-        System.out.println("Program output: " + executionStrategy.getProcess().getOutput());
-
-        // Retourner un verdict temporaire
-        return Verdict.ACCEPTED;
     }
 }
 
