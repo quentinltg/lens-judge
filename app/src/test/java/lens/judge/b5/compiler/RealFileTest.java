@@ -1,8 +1,8 @@
 package lens.judge.b5.compiler;
 
-import lens.judge.b5.Process.ProcessAdapter;
+import lens.judge.b5.process.ProcessAdapter;
 import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
