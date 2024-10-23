@@ -4,9 +4,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
+import java.util.concurrent.TimeUnit;
+
+import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ProcessTest {
+class ProcessTest {
     private IProcess process;
     private IProcess timeLimitedProcess;
 
@@ -17,54 +20,55 @@ public class ProcessTest {
     }
 
     @Test
-    public void testProcessStart() {
+    void testProcessStart() {
         process.start();
         assertNotNull(process.getInputStream());
     }
 
     @Test
-    public void testProcessStop() {
+    void testProcessStop() {
         process.stop();
         assertThrows(IllegalThreadStateException.class, () -> process.exitValue());
     }
 
     @Test
-    public void testProcessOutput() throws InterruptedException {
+    void testProcessOutput() throws InterruptedException {
         process.start();
         process.waitFor();
         assertEquals("Hello, World!\n", process.getOutput());
     }
 
     @Test
-    public void testTimeLimitDecorator() throws InterruptedException {
-        IProcess process2 = new ProcessAdapter("ping", "-c", "5", "localhost"); // Ping localhost 5 times
+    void testTimeLimitDecorator() {
+        IProcess process2 = new ProcessAdapter("ping", "-c", "5", "localhost");
         timeLimitedProcess = new TimeLimitDecorator(process2, 10000);
         timeLimitedProcess.start();
-        Thread.sleep(2000); // Wait for 2 seconds to ensure the process is stopped by the timer
-        assertThrows(IllegalThreadStateException.class, () -> timeLimitedProcess.exitValue());
-        timeLimitedProcess.stop(); // Ensure the process is stopped to avoid resource leaks
+        await().atMost(2, TimeUnit.SECONDS).untilAsserted(() ->
+                assertThrows(IllegalThreadStateException.class, () -> timeLimitedProcess.exitValue())
+        );
+        timeLimitedProcess.stop();
     }
 
     @Test
-    public void testTimeLimitDecoratorOutput() throws InterruptedException {
+    void testTimeLimitDecoratorOutput() throws InterruptedException {
         timeLimitedProcess.start();
         timeLimitedProcess.waitFor();
         assertEquals("Hello, World!\n", timeLimitedProcess.getOutput());
     }
     @Test
-    public void testProcessExitValue() throws InterruptedException {
+    void testProcessExitValue() throws InterruptedException {
         process.start();
         process.waitFor();
         assertEquals(0, process.exitValue());
     }
 
     @Test
-    public void testExitValueProcessNotStarted() {
+    void testExitValueProcessNotStarted() {
         assertThrows(IllegalThreadStateException.class, () -> process.exitValue());
     }
 
     @Test
-    public void testExitValueProcessRunning() {
+    void testExitValueProcessRunning() {
         IProcess process2 = new ProcessAdapter("ping", "-c", "5", "localhost");
         timeLimitedProcess = new TimeLimitDecorator(process2, 10000);
         timeLimitedProcess.start();
@@ -73,7 +77,7 @@ public class ProcessTest {
     }
 
     @Test
-    public void testProcessErrorOutput() throws InterruptedException {
+    void testProcessErrorOutput() throws InterruptedException {
         IProcess errorProcess = new ProcessAdapter("sh", "-c", "echo 'Error!' 1>&2");
         errorProcess.start();
         errorProcess.waitFor();
