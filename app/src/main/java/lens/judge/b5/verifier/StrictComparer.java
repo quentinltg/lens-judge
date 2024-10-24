@@ -1,9 +1,10 @@
 package lens.judge.b5.verifier;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,14 +48,14 @@ public class StrictComparer implements Verifier {
     @Override
     public boolean verify(File outputFile, File expectedFile) {
         try {
-            String output = new String(Files.readAllBytes(outputFile.toPath()));
-            String expected = new String(Files.readAllBytes(expectedFile.toPath()));
+            String output = readFile(outputFile);
+            String expected = readFile(expectedFile);
             return verify(output, expected);
         } catch (IOException e) {
-            throw new RuntimeException("Error reading files", e);
+            System.out.println("Error reading files: " + e.getMessage());
+            return false;
         }
     }
-
 
     /**
      * Reads the lines from the given string.
@@ -66,6 +67,24 @@ public class StrictComparer implements Verifier {
         if (text == null || text.isEmpty()) {
             return List.of();
         }
-        return Arrays.asList(text.split("\n"));
+        return List.of(text.split("\n"));
+    }
+
+    /**
+     * Reads the content of a file into a string.
+     *
+     * @param file the file to be read
+     * @return the content of the file as a string
+     * @throws IOException if an I/O error occurs
+     */
+    private String readFile(File file) throws IOException {
+        StringBuilder content = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line).append("\n");
+            }
+        }
+        return content.toString();
     }
 }

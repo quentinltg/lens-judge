@@ -7,6 +7,8 @@ import lens.judge.b5.runner.Runner;
 import lens.judge.b5.runner.RunnerBuilder;
 import lens.judge.b5.runner.Verdict;
 import lens.judge.b5.verifier.OrderToleranceComparer;
+import lens.judge.b5.verifier.StrictComparer;
+import lens.judge.b5.verifier.Verifier;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ public class LensJudge {
 
 
         // Créer un problème avec un TestCase
-        OrderToleranceComparer comparer = new OrderToleranceComparer();
+        StrictComparer comparer = new StrictComparer();
         ArrayList<TestCase> testCases = new ArrayList<>();
         TestCase testCase = new TestCase(inputFile, expectedOutputFile);
         testCases.add(testCase);
@@ -67,7 +69,7 @@ public class LensJudge {
             ));
             */
 
-            Verdict verdict = runner.run();  // Exécuter le programme sans vérification pour le moment
+            boolean verdict = runner.run(expectedOutputFile);  // Exécuter le programme sans vérification pour le moment
             System.out.println("TestCase verdict: " + verdict);
         }
     }
