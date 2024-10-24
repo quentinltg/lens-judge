@@ -1,4 +1,4 @@
-package lens.judge.b5.Process;
+package lens.judge.b5.process;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,6 +38,12 @@ public class ProcessAdapter implements IProcess {
 
     @Override
     public int exitValue() {
+        if (process == null) {
+            throw new IllegalThreadStateException("Process has not been started.");
+        }
+        if (process.isAlive()) {
+            throw new IllegalThreadStateException("Process has not yet terminated.");
+        }
         return process.exitValue();
     }
 
