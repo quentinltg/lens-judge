@@ -3,14 +3,12 @@
  */
 package lens.judge.b5;
 
-import lens.judge.b5.Process.ProcessAdapter;
+import lens.judge.b5.process.ProcessAdapter;
 import lens.judge.b5.compiler.JavaCompilationStrategy;
 import lens.judge.b5.execution.IExecutionStrategy;
 import lens.judge.b5.execution.JavaExecutionStrategy;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class Runner {
 

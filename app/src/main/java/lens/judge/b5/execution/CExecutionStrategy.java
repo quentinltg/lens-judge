@@ -1,6 +1,6 @@
 package lens.judge.b5.execution;
 
-import lens.judge.b5.Process.ProcessAdapter;
+import lens.judge.b5.process.ProcessAdapter;
 
 public class CExecutionStrategy implements IExecutionStrategy {
 

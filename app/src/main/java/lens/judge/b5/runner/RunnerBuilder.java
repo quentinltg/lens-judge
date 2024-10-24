@@ -1,6 +1,5 @@
 package lens.judge.b5.runner;
 
-import lens.judge.b5.Process.ProcessAdapter;
 import lens.judge.b5.compiler.*;
 import lens.judge.b5.execution.CExecutionStrategy;
 import lens.judge.b5.execution.IExecutionStrategy;

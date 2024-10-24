@@ -1,16 +1,10 @@
 package lens.judge.b5;
 
-import lens.judge.b5.Process.ProcessAdapter;
-import lens.judge.b5.compiler.JavaCompilationStrategy;
-import lens.judge.b5.execution.IExecutionStrategy;
-import lens.judge.b5.execution.JavaExecutionStrategy;
 import lens.judge.b5.problem.Problem;
 import lens.judge.b5.problem.TestCase;
 import lens.judge.b5.runner.Runner;
 import lens.judge.b5.runner.RunnerBuilder;
 import lens.judge.b5.runner.Verdict;
-
-import java.io.IOException;
 
 public class Main {
 

@@ -1,6 +1,6 @@
 package lens.judge.b5.execution;
 
-import lens.judge.b5.Process.IProcess;
+import lens.judge.b5.process.IProcess;
 
 public interface IExecutionStrategy {
 
