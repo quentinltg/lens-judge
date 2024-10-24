@@ -12,6 +12,7 @@ public class RunnerBuilder {
 
     private IExecutionStrategy executionStrategy;
     private ICompilationStrategy compilationStrategy;
+    private TestCase testCase;
 
     private String sourceFile;
 
@@ -76,4 +77,8 @@ public class RunnerBuilder {
         return fileName.substring(lastIndexOfDot);
     }
 
+    public RunnerBuilder withTestCase(TestCase tc) {
+        this.testCase = tc;
+        return this;
+    }
 }
