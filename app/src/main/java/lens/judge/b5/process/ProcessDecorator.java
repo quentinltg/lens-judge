@@ -1,4 +1,4 @@
-package lens.judge.b5.Process;
+package lens.judge.b5.process;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -6,7 +6,7 @@ import java.io.OutputStream;
 public abstract class ProcessDecorator implements IProcess {
     protected IProcess decoratedProcess;
 
-    public ProcessDecorator(IProcess decoratedProcess) {
+    protected ProcessDecorator(IProcess decoratedProcess) {
         this.decoratedProcess = decoratedProcess;
     }
 

@@ -1,15 +1,16 @@
 package lens.judge.b5.problem;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import static org.junit.Assert.*;
 
-public class ProblemTest {
+
+class ProblemTest {
 
     @Test
-    public void buildProblemWithValidParameters() {
+    void buildProblemWithValidParameters() {
         List<TestCase> testCases = new ArrayList<>();
         testCases.add(new TestCase("input1", "output1"));
         Problem problem = ProblemBuilder.newInstance()
@@ -18,39 +19,39 @@ public class ProblemTest {
                 .withMemoryLimit(1024)
                 .build();
 
-        assertEquals(1000, problem.getTimeLimit());
-        assertEquals(1024, problem.getMemoryLimit());
-        assertEquals(1, problem.getTestCases().size());
+        Assertions.assertEquals(1000, problem.getTimeLimit());
+        Assertions.assertEquals(1024, problem.getMemoryLimit());
+        Assertions.assertEquals(1, problem.getTestCases().size());
     }
 
     @Test
-    public void buildProblemWithEmptyTestCases() {
+    void buildProblemWithEmptyTestCases() {
         Problem problem = ProblemBuilder.newInstance()
                 .withTestCases(new ArrayList<>())
                 .withTimeLimit(1000)
                 .withMemoryLimit(1024)
                 .build();
 
-        assertEquals(1000, problem.getTimeLimit());
-        assertEquals(1024, problem.getMemoryLimit());
-        assertTrue(problem.getTestCases().isEmpty());
+        Assertions.assertEquals(1000, problem.getTimeLimit());
+        Assertions.assertEquals(1024, problem.getMemoryLimit());
+        Assertions.assertTrue(problem.getTestCases().isEmpty());
     }
 
     @Test
-    public void buildProblemWithNullTestCases() {
+    void buildProblemWithNullTestCases() {
         Problem problem = ProblemBuilder.newInstance()
                 .withTestCases(null)
                 .withTimeLimit(1000)
                 .withMemoryLimit(1024)
                 .build();
 
-        assertEquals(1000, problem.getTimeLimit());
-        assertEquals(1024, problem.getMemoryLimit());
-        assertNull(problem.getTestCases());
+        Assertions.assertEquals(1000, problem.getTimeLimit());
+        Assertions.assertEquals(1024, problem.getMemoryLimit());
+        Assertions.assertNull(problem.getTestCases());
     }
 
     @Test
-    public void addTestCaseToProblem() {
+    void addTestCaseToProblem() {
         TestCase testCase = new TestCase("input3", "output3");
         Problem problem = ProblemBuilder.newInstance()
                 .withTestCases(new ArrayList<>())
@@ -60,12 +61,12 @@ public class ProblemTest {
 
         problem.addTestCase(testCase);
 
-        assertEquals(1, problem.getTestCases().size());
-        assertEquals(testCase, problem.getTestCases().get(0));
+        Assertions.assertEquals(1, problem.getTestCases().size());
+        Assertions.assertEquals(testCase, problem.getTestCases().get(0));
     }
 
     @Test
-    public void removeTestCaseFromProblem() {
+    void removeTestCaseFromProblem() {
         TestCase testCase1 = new TestCase("input1", "output1");
         TestCase testCase2 = new TestCase("input2", "output2");
         List<TestCase> initialTestCases = new ArrayList<>();
@@ -80,12 +81,12 @@ public class ProblemTest {
 
         problem.removeTestCase(testCase1);
 
-        assertEquals(1, problem.getTestCases().size());
-        assertEquals(testCase2, problem.getTestCases().get(0));
+        Assertions.assertEquals(1, problem.getTestCases().size());
+        Assertions.assertEquals(testCase2, problem.getTestCases().get(0));
     }
 
     @Test
-    public void testIterator() {
+    void testIterator() {
         TestCase testCase1 = new TestCase("input1", "output1");
         TestCase testCase2 = new TestCase("input2", "output2");
         List<TestCase> initialTestCases = new ArrayList<>();
@@ -99,15 +100,15 @@ public class ProblemTest {
                 .build();
 
         Iterator<TestCase> iterator = problem.iterator();
-        assertTrue(iterator.hasNext());
-        assertEquals(testCase1, iterator.next());
-        assertTrue(iterator.hasNext());
-        assertEquals(testCase2, iterator.next());
-        assertFalse(iterator.hasNext());
+        Assertions.assertTrue(iterator.hasNext());
+        Assertions.assertEquals(testCase1, iterator.next());
+        Assertions.assertTrue(iterator.hasNext());
+        Assertions.assertEquals(testCase2, iterator.next());
+        Assertions.assertFalse(iterator.hasNext());
     }
 
     @Test
-    public void testSetTestCases() {
+    void testSetTestCases() {
         TestCase testCase1 = new TestCase("input1", "output1");
         TestCase testCase2 = new TestCase("input2", "output2");
         List<TestCase> initialTestCases = new ArrayList<>();
@@ -123,12 +124,12 @@ public class ProblemTest {
         newTestCases.add(testCase2);
         problem.setTestCases(newTestCases);
 
-        assertEquals(1, problem.getTestCases().size());
-        assertEquals(testCase2, problem.getTestCases().get(0));
+        Assertions.assertEquals(1, problem.getTestCases().size());
+        Assertions.assertEquals(testCase2, problem.getTestCases().get(0));
     }
 
     @Test
-    public void testSetTimeLimit() {
+    void testSetTimeLimit() {
         Problem problem = ProblemBuilder.newInstance()
                 .withTestCases(new ArrayList<>())
                 .withTimeLimit(1000)
@@ -136,11 +137,11 @@ public class ProblemTest {
                 .build();
 
         problem.setTimeLimit(2000);
-        assertEquals(2000, problem.getTimeLimit());
+        Assertions.assertEquals(2000, problem.getTimeLimit());
     }
 
     @Test
-    public void testSetMemoryLimit() {
+    void testSetMemoryLimit() {
         Problem problem = ProblemBuilder.newInstance()
                 .withTestCases(new ArrayList<>())
                 .withTimeLimit(1000)
@@ -148,6 +149,6 @@ public class ProblemTest {
                 .build();
 
         problem.setMemoryLimit(2048);
-        assertEquals(2048, problem.getMemoryLimit());
+        Assertions.assertEquals(2048, problem.getMemoryLimit());
     }
 }
