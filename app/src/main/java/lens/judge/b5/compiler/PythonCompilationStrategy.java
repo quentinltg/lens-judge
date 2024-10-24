@@ -14,6 +14,7 @@ public class PythonCompilationStrategy extends AbstractCompilationStrategy {
 
     @Override
     protected String getCompileCommand(String sourceFile, String binaryName) {
+        System.out.println("Compiling Python code : python3 -m py_compile " + sourceFile);
         return "python3 -m py_compile " + sourceFile;
     }
 }

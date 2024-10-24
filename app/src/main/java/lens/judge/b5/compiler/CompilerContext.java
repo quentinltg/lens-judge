@@ -7,7 +7,7 @@ public class CompilerContext {
         this.strategy = strategy;
     }
 
-    public void compile(String sourceFile){
+    public void compile(String sourceFile) throws Exception {
         if (strategy.isCompatible(sourceFile)) {
             strategy.compile(sourceFile);
         } else {
