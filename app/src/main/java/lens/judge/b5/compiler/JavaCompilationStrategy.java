@@ -13,7 +13,8 @@ public class JavaCompilationStrategy extends AbstractCompilationStrategy {
     }
 
     @Override
-    protected String getCompileCommand(String sourceFile, String binaryName) {
-        return "javac -d bin/ " + sourceFile;
+    public String getCompileCommand(String sourceFile, String binaryName) {
+        System.out.println("Compiling Java code : javac -d app/bin/ " + sourceFile);
+        return "javac -d app/bin/ " + sourceFile;
     }
 }

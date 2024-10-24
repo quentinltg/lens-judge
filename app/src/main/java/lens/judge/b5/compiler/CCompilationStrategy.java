@@ -17,8 +17,8 @@ public class CCompilationStrategy extends AbstractCompilationStrategy {
 
     @Override
     protected String getCompileCommand(String sourceFile, String binaryName) {
-        return "gcc -x c -Wall -O2 -static -pipe -lm -o " + binaryName + " " + sourceFile;
-
+        System.out.println("Compiling C code : gcc -x c -Wall -O2 -static -pipe -lm -o app/bin/" + binaryName + " " + sourceFile);
+        return "gcc -x c -Wall -O2 -static -pipe -lm -o app/bin/" + binaryName + " app/src/test/resources/" + sourceFile;
     }
 
     public void getPath(String binaryName) {
