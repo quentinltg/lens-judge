@@ -2,30 +2,40 @@ package lens.judge.b5;
 
 import lens.judge.b5.problem.Problem;
 import lens.judge.b5.problem.TestCase;
-import lens.judge.b5.verifier.OrderToleranceComparer;
-import lens.judge.b5.verifier.PrecisionToleranceComparer;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Scanner;
 import lens.judge.b5.runner.Runner;
 import lens.judge.b5.runner.RunnerBuilder;
 import lens.judge.b5.runner.Verdict;
+import lens.judge.b5.verifier.OrderToleranceComparer;
 
-public class Main {
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class LensJudge {
     public static void main(String[] args) {
         // Utilisation du chemin absolu du fichier source Java
         // String sourceFile = "app/src/test/resources/Test.java";
         // String sourceFile = "test.c";
         // String sourceFile = "test.cpp";
-        String sourceFile = "app/src/test/resources/test.py";
+        // String sourceFile = "app/src/test/resources/test.py";
+
+        if (args.length < 3) {
+            System.out.println("Usage: lensjudge <sourceFile> <inputFile> <expectedOutputFile>");
+            return;
+        }
+
+        String sourceFile = args[0];
+        File inputFile = new File(args[1]);
+        File expectedOutputFile = new File(args[2]);
+
 
         // Créer un problème avec un TestCase
-        TestCase testCase = new TestCase("input1", "expectedOutput1");
-        Problem problem = new Problem();
+        OrderToleranceComparer comparer = new OrderToleranceComparer();
+        ArrayList<TestCase> testCases = new ArrayList<>();
+        TestCase testCase = new TestCase(inputFile, expectedOutputFile);
+        testCases.add(testCase);
+        Problem problem = new Problem(testCases, 1000, 256, comparer );  // Limite de temps: 1000 ms, Limite de mémoire: 256 Mo
         problem.addTestCase(testCase);
 
 
@@ -33,7 +43,7 @@ public class Main {
         for (TestCase tc : problem) {
             // Construire et exécuter le Runner
             Runner runner = new RunnerBuilder()
-//                    .withTestCase(tc)
+                    .withTestCase(tc)
                     .withSourceFile(sourceFile)  // Chemin complet du fichier source
                     .build();  // Le builder choisit les stratégies en fonction du fichier
 

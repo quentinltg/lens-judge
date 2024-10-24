@@ -6,24 +6,20 @@ import lens.judge.b5.verifier.Verifier;
 import java.util.Iterator;
 import java.util.List;
 
-public class Problem {
+public class Problem implements Iterable<TestCase> {
     private List<TestCase> testCases;
-    private int timeLimit;
+    private int timeLimit = 0;
     private int memoryLimit;
     private Verifier verifier;
 
-    public Problem(List<TestCase> testCases, int timeLimit, int memoryLimit) {
+    public Problem(List<TestCase> testCases, int timeLimit, int memoryLimit, Verifier verifier) {
         this.testCases = testCases;
         this.timeLimit = timeLimit;
         this.memoryLimit = memoryLimit;
         this.verifier = verifier;
     }
 
-    public Problem() {
-        this.testCases = new ArrayList<>();
-        this.timeLimit = 0;
-        this.memoryLimit = 0;
-    }
+
 
     public List<TestCase> getTestCases() {
         return testCases;
