@@ -43,6 +43,16 @@ public class WhiteSpaceToleranceComparer extends VerifierDecorator {
      */
     @Override
     public boolean verify(File outputFile, File expectedFile) {
-        return false,
+        return false;
+    }
+    /**
+     * Normalizes spaces in a string by trimming leading and trailing spaces
+     * and replacing multiple spaces with a single space.
+     *
+     * @param input the input string to normalize
+     * @return the normalized string
+     */
+    private String normalizeSpaces(String input) {
+        return input.trim().replaceAll("\\s+", " ");
     }
 }
