@@ -28,27 +28,6 @@ public class MultipleSolutionsComparer implements Verifier {
 
     @Override
     public boolean verify(String output, String expected) {
-        List<String> outputLines = readOutputLines(output);
-        List<String> expectedLines = readOutputLines(expected);
-
-        if (outputLines.size() != expectedLines.size()) {
-            return false;
-        }
-
-        Set<String> seenLines = new HashSet<>();
-        for (String expectedLine : expectedLines) {
-            if (!outputLines.contains(expectedLine) || seenLines.contains(expectedLine)) {
-                return false;
-            }
-            seenLines.add(expectedLine);
-        }
-        return true;
-    }
-
-    private List<String> readOutputLines(String output) {
-        if (output == null || output.isEmpty()) {
-            return List.of();
-        }
-        return Arrays.asList(output.split("\n"));
+        return false;
     }
 }

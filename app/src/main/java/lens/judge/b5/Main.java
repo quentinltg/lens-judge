@@ -2,6 +2,7 @@ package lens.judge.b5;
 
 import lens.judge.b5.problem.Problem;
 import lens.judge.b5.problem.TestCase;
+import lens.judge.b5.verifier.OrderToleranceComparer;
 import lens.judge.b5.verifier.PrecisionToleranceComparer;
 
 import java.io.File;
@@ -28,8 +29,7 @@ public class Main {
             ));
 
             // Create a PrecisionToleranceComparer
-            PrecisionToleranceComparer comparer = new PrecisionToleranceComparer();
-            comparer.setTolerance(0.00f); // Set the tolerance
+            OrderToleranceComparer comparer = new OrderToleranceComparer();
 
             // Create an instance of Problem with the test cases and the comparer
             Problem problem = new Problem(testCases, 1000, 256, comparer);
