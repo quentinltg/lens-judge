@@ -27,12 +27,7 @@ public class Main {
         TestCase testCase = new TestCase("input1", "expectedOutput1");
         Problem problem = new Problem();
         problem.addTestCase(testCase);
-        try (Scanner scanner = new Scanner(System.in)) {
-            // Ask the user to enter the file paths
-            System.out.print("Enter the input file path: ");
-            String inputFilePath = scanner.nextLine();
-            System.out.print("Enter the expected file path: ");
-            String expectedFilePath = scanner.nextLine();
+
 
         // Itérer sur les TestCases du problème
         for (TestCase tc : problem) {
@@ -41,16 +36,34 @@ public class Main {
 //                    .withTestCase(tc)
                     .withSourceFile(sourceFile)  // Chemin complet du fichier source
                     .build();  // Le builder choisit les stratégies en fonction du fichier
+
+
+
+
+                    /*
+
+            try (Scanner scanner = new Scanner(System.in)) {
+            // Ask the user to enter the file paths
+            System.out.print("Enter the input file path: ");
+            String inputFilePath = scanner.nextLine();
+            System.out.print("Enter the expected file path: ");
+            String expectedFilePath = scanner.nextLine();
+
+         /*
             // Create a list of test cases
             List<TestCase> testCases = new ArrayList<>();
             testCases.add(new TestCase(
                     new File("app/src/main/java/lens/judge/b5/verifier/"+inputFilePath),
                     new File("app/src/main/java/lens/judge/b5/verifier/"+expectedFilePath)
             ));
+            */
 
             Verdict verdict = runner.run();  // Exécuter le programme sans vérification pour le moment
             System.out.println("TestCase verdict: " + verdict);
         }
+    }
+}
+        /*
             // Create a PrecisionToleranceComparer
             OrderToleranceComparer comparer = new OrderToleranceComparer();
 
@@ -68,7 +81,7 @@ public class Main {
         }
     }
 }
-
+*/
 
 
 
