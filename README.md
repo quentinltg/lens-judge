@@ -366,7 +366,7 @@ AbstractCompilationStrategy <|-- JavaCompilationStrategy
 
 ## Commandes à entrer: 
 
-# Compilation :
+### Compilation :
 
 `javac -d bin $(find app/src/main/java -name "*.java")`
 
