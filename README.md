@@ -363,3 +363,11 @@ AbstractCompilationStrategy <|-- CppCompilationStrategy
 AbstractCompilationStrategy <|-- JavaCompilationStrategy
 @enduml
 ```
+
+## Commandes à entrer: 
+
+# Compilation :
+
+`javac -d bin $(find app/src/main/java -name "*.java")`
+
+`java -cp bin lens.judge.b5.LensJudge <sourceFile> <inputFile> <expectedOutputFile>`
