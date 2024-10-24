@@ -12,13 +12,15 @@ public class CppCompilationStrategy extends AbstractCompilationStrategy {
 
     @Override
     public String getBinaryName(String sourceFile) {
-        return sourceFile.replaceFirst("\\.(cpp|cc|cxx)$", "");
+        String [] parts = sourceFile.split("/");
+        String fileNameWithExtension = parts[parts.length - 1];
+        return fileNameWithExtension.replaceFirst("\\.(cpp|cc|cxx)$", "");
     }
 
     @Override
     protected String getCompileCommand(String sourceFile, String binaryName) {
-        System.out.println("Compiling C++ code : g++ -x c++ -Wall -O2 -static -pipe -o app/bin/" + binaryName + " app/src/test/resources/" + sourceFile);
-        return "g++ -x c++ -Wall -O2 -static -pipe -o app/bin/" + binaryName + " app/src/test/resources/" + sourceFile;
+        System.out.println("Compiling C++ code : g++ -x c++ -Wall -O2 -static -pipe -o app/bin/" + binaryName + sourceFile);
+        return "g++ -x c++ -Wall -O2 -static -pipe -o app/bin/" + binaryName + " " + sourceFile;
     }
 
     public void getPath(String binaryName) {

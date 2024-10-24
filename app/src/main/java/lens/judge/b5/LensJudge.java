@@ -18,8 +18,8 @@ public class LensJudge {
     public static void main(String[] args) {
         // Utilisation du chemin absolu du fichier source Java
         // String sourceFile = "app/src/test/resources/Test.java";
-        // String sourceFile = "test.c";
-        // String sourceFile = "test.cpp";
+        // String sourceFile = "app/src/test/resources/test.c";
+        // String sourceFile = "app/src/test/resources/test.cpp";
         // String sourceFile = "app/src/test/resources/test.py";
 
         if (args.length < 3) {
@@ -38,7 +38,6 @@ public class LensJudge {
         TestCase testCase = new TestCase(inputFile, expectedOutputFile);
         testCases.add(testCase);
         Problem problem = new Problem(testCases, 1000, 256, comparer );  // Limite de temps: 1000 ms, Limite de mémoire: 256 Mo
-        problem.addTestCase(testCase);
 
 
         // Itérer sur les TestCases du problème
