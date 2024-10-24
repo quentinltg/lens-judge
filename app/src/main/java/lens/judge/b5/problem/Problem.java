@@ -1,17 +1,22 @@
 package lens.judge.b5.problem;
 import java.util.ArrayList;
+
+import lens.judge.b5.problem.TestCase;
+import lens.judge.b5.verifier.Verifier;
 import java.util.Iterator;
 import java.util.List;
 
-public class Problem implements Iterable<TestCase> {
+public class Problem {
     private List<TestCase> testCases;
     private int timeLimit;
     private int memoryLimit;
+    private Verifier verifier;
 
     public Problem(List<TestCase> testCases, int timeLimit, int memoryLimit) {
         this.testCases = testCases;
         this.timeLimit = timeLimit;
         this.memoryLimit = memoryLimit;
+        this.verifier = verifier;
     }
 
     public Problem() {
@@ -60,4 +65,7 @@ public class Problem implements Iterable<TestCase> {
         }
     }
 
+    public boolean verifyTestCase(TestCase testCase) {
+        return verifier.verify(testCase.getOutput(), testCase.getExpected());
+    }
 }
