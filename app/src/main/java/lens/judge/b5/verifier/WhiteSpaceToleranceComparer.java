@@ -43,7 +43,15 @@ public class WhiteSpaceToleranceComparer extends VerifierDecorator {
      */
     @Override
     public boolean verify(File outputFile, File expectedFile) {
-        return false;
+        try {
+            String output = new String(Files.readAllBytes(outputFile.toPath()));
+            String expected = new String(Files.readAllBytes(expectedFile.toPath()));
+            return verify(output, expected);
+        } catch (IOException e) {
+            System.err.println("Error reading files: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
     /**
      * Normalizes spaces in a string by trimming leading and trailing spaces

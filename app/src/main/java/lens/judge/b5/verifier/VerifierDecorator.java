@@ -31,6 +31,18 @@ public abstract class VerifierDecorator implements Verifier {
      */
     @Override
     public boolean verify(String output, String expected) {
-        return wrappedVerifier.verify(new File(output), new File(expected));
+        return wrappedVerifier.verify(output, expected);
+    }
+
+    /**
+     * Verifies the output file against the expected file by delegating to the wrapped Verifier.
+     *
+     * @param outputFile the output file to be verified
+     * @param expectedFile the expected file to compare against
+     * @return true if the output matches the expected file, false otherwise
+     */
+    @Override
+    public boolean verify(File outputFile, File expectedFile) {
+        return wrappedVerifier.verify(outputFile, expectedFile);
     }
 }
