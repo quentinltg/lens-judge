@@ -5,6 +5,7 @@ import lens.judge.b5.execution.CExecutionStrategy;
 import lens.judge.b5.execution.IExecutionStrategy;
 import lens.judge.b5.execution.JavaExecutionStrategy;
 import lens.judge.b5.execution.PythonExecutionStrategy;
+import lens.judge.b5.problem.Problem;
 import lens.judge.b5.problem.TestCase;
 
 /**
@@ -87,7 +88,7 @@ public class RunnerBuilder {
     private String getFileExtension(String fileName) {
         int lastIndexOfDot = fileName.lastIndexOf('.');
         if (lastIndexOfDot == -1) {
-            return ""; // No extension
+            return "";
         }
         return fileName.substring(lastIndexOfDot);
     }
