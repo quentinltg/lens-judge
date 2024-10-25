@@ -24,6 +24,13 @@ public class CaseInsensitiveComparer extends VerifierDecorator {
         }
     }
 
+    @Override
+    public boolean verify(String output, String expected) {
+        String normalizedOutput = normalize(output);
+        String normalizedExpected = normalize(expected);
+        return super.verify(normalizedOutput, normalizedExpected);
+    }
+
     private String normalize(String string) {
         if (string == null) {
             return null;

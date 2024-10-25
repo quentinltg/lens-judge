@@ -22,8 +22,6 @@ public class LensJudge {
         // String sourceFile = "app/src/test/resources/test.cpp";
         // String sourceFile = "app/src/test/resources/test.py";
 
-        Scanner scanner = new Scanner(System.in);
-
         if (args.length < 3) {
             System.out.println("Usage: lensjudge <sourceFile> <inputFile> <expectedOutputFile>");
             return;
@@ -40,6 +38,7 @@ public class LensJudge {
 
         // Create instances of different comparers
         Verifier strictComparer = new StrictComparer();
+        Verifier caseInsensitiveComparer = new CaseInsensitiveComparer(strictComparer);
         Verifier whiteSpaceToleranceComparer = new WhiteSpaceToleranceComparer(strictComparer);
         Verifier orderToleranceComparer = new OrderToleranceComparer();
         Verifier multipleSolutionsComparer = new MultipleSolutionsComparer();
@@ -50,6 +49,7 @@ public class LensJudge {
         // Create a list of comparers
         List<Verifier> comparers = List.of(
                 strictComparer,
+                caseInsensitiveComparer,
                 whiteSpaceToleranceComparer,
                 orderToleranceComparer,
                 multipleSolutionsComparer,
@@ -69,11 +69,12 @@ public class LensJudge {
                         .withSourceFile(sourceFile)
                         .build();
 
-                boolean verdict = runner.run(inputFile, expectedOutputFile, comparer);  // Exécuter le programme sans vérification pour le moment
-                System.out.println("Using comparer: " + comparer.getClass().getSimpleName());
-                System.out.println("TestCase verdict: " + verdict);
+                Verdict verdict = runner.run(inputFile, expectedOutputFile, comparer);  // Exécuter le programme sans vérification pour le moment
+                System.out.println("\nComparer: " + comparer.getClass().getSimpleName());
+                System.out.println("Verdict: " + verdict);
             }
         }
+        System.out.println();
 
 
 
