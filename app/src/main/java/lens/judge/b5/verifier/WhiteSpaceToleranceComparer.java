@@ -53,6 +53,7 @@ public class WhiteSpaceToleranceComparer extends VerifierDecorator {
             return false;
         }
     }
+
     /**
      * Normalizes spaces in a string by trimming leading and trailing spaces
      * and replacing multiple spaces with a single space.
