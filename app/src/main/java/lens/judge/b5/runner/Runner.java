@@ -21,7 +21,7 @@ public class Runner {
         this.sourceFile = sourceFile;
     }
 
-    public boolean run(File expectedOuputFile) {
+    public boolean run(File inputFile ,File expectedOuputFile) {
         Verifier comparer = new StrictComparer();
         File outputFile = new File("app/src/main/resources/output.ans");
 
@@ -36,7 +36,7 @@ public class Runner {
 
         // 2. Execute the program with the TestCase input
         try {
-            executionStrategy.execute();
+            executionStrategy.execute(inputFile);
 
             // Capture the output and errors
             String output = executionStrategy.getProcess().getOutput();
