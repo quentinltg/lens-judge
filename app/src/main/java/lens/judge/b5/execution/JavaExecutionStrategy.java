@@ -8,27 +8,46 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ * Execution strategy for Java classes.
+ */
 public class JavaExecutionStrategy implements IExecutionStrategy {
 
     private String className;
     private ProcessAdapter process;
 
+    /**
+     * Constructs a new JavaExecutionStrategy with the specified class name.
+     *
+     * @param className the name of the Java class to execute
+     */
     public JavaExecutionStrategy(String className) {
         this.className = className;
     }
 
+    /**
+     * Returns the process associated with this execution strategy.
+     *
+     * @return the process associated with this execution strategy
+     */
     @Override
     public IProcess getProcess() {
         return process;
     }
 
+    /**
+     * Executes the Java class with the provided input file.
+     *
+     * @param inputFile the input file to be passed to the Java class
+     * @throws Exception if an error occurs during execution
+     */
     @Override
     public void execute(File inputFile) throws Exception {
         // System.out.println("Executing Java code : java -cp app/bin " + className);
         process = new ProcessAdapter("java", "-cp", "app/bin", className);
         process.start();
 
-        // Écrire l'entrée dans le processus
+        // Write the input to the process
         try (FileInputStream fis = new FileInputStream(inputFile);
              OutputStream processInput = process.getOutputStream()) {
             byte[] buffer = new byte[1024];
