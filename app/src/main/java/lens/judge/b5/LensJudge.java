@@ -12,7 +12,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 public class LensJudge {
     public static void main(String[] args) {
@@ -21,8 +20,6 @@ public class LensJudge {
         // String sourceFile = "app/src/test/resources/test.c";
         // String sourceFile = "app/src/test/resources/test.cpp";
         // String sourceFile = "app/src/test/resources/test.py";
-
-        Scanner scanner = new Scanner(System.in);
 
         if (args.length < 3) {
             System.out.println("Usage: lensjudge <sourceFile> <inputFile> <expectedOutputFile>");
@@ -43,8 +40,6 @@ public class LensJudge {
         Verifier whiteSpaceToleranceComparer = new WhiteSpaceToleranceComparer(strictComparer);
         Verifier orderToleranceComparer = new OrderToleranceComparer();
         Verifier multipleSolutionsComparer = new MultipleSolutionsComparer();
-
-        // Change the tolerance value as needed using the constructor
         Verifier precisionToleranceComparer = new PrecisionToleranceComparer();
 
         // Create a list of comparers
