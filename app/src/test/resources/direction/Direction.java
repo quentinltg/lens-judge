@@ -23,6 +23,8 @@ public class Main {
                 case "back":
                     currentDirection = (currentDirection + 2) % 4;
                     break;
+                default:
+                    break;
             }
         }
 
