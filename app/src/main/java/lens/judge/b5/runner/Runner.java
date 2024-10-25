@@ -30,6 +30,14 @@ public class Runner {
         this.sourceFile = sourceFile;
     }
 
+    /**
+     * Compiles and executes the source file with the given input file, and verifies the output against the expected output file.
+     *
+     * @param inputFile the input file to be used during execution
+     * @param expectedOuputFile the file containing the expected output
+     * @param comparer the verifier to compare the actual output with the expected output
+     * @return the verdict of the execution and verification process
+     */
     public Verdict run(File inputFile, File expectedOuputFile, Verifier comparer) {
         File outputFile = new File("app/src/main/resources/output.ans");
 
@@ -72,7 +80,6 @@ public class Runner {
             } else {
                 return Verdict.WRONG_ANSWER;
             }
-
 
         } catch (Exception e) {
             System.out.println("Execution failed: " + e.getMessage());
