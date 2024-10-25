@@ -1,13 +1,18 @@
-## Commandes à entrer pour executer le projet : 
 
-### Compilation :
-
-`javac -d bin $(find app/src/main/java -name "*.java")`
-
-### Execution :
-
-`java -cp bin lens.judge.b5.LensJudge <sourceFile> <inputFile> <expectedOutputFile>`
-
+### Manual Lens Judge
+Build the JAR: Open a terminal, navigate to the root directory of your project, and run the following command to build the JAR:  
+```bash
+./gradlew shadowJar
+```
+Locate the JAR: After the build completes, the JAR file will be located in the build/libs directory. You should see a file named lensjudge.jar.  
+```bash
+ls build/libs
+```
+Running the JAR
+Run the JAR: To run the JAR file, use the java -jar command followed by the path to the JAR file:  
+```bash
+java -jar build/libs/lensjudge.jar <source_file_to_test> <input_file> <output_file>
+```
 
 ## Liste des tâches :
 
