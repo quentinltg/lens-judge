@@ -44,7 +44,6 @@ public class Runner {
         // 1. Compile the program
         try {
             compilationStrategy.compile(sourceFile);
-            // System.out.println("Compilation successful.");
         } catch (Exception e) {
             System.out.println("Compilation failed: " + e.getMessage());
             return Verdict.COMPILATION_ERROR;
@@ -72,9 +71,7 @@ public class Runner {
             }
 
             // 3. Verify the output
-            // System.out.print("\nOutput: " + output);
             boolean result = comparer.verify(outputFile, expectedOuputFile);
-            // System.out.println("Verification result: " + result);
             if (result) {
                 return Verdict.ACCEPTED;
             } else {

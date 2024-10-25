@@ -18,7 +18,7 @@ public abstract class VerifierDecorator implements Verifier {
      *
      * @param wrappedVerifier the Verifier to be wrapped
      */
-    public VerifierDecorator(Verifier wrappedVerifier) {
+    protected VerifierDecorator(Verifier wrappedVerifier) {
         this.wrappedVerifier = wrappedVerifier;
     }
 
