@@ -37,6 +37,7 @@ public class LensJudge {
 
         // Create instances of different comparers
         Verifier strictComparer = new StrictComparer();
+        Verifier caseInsensitiveComparer = new CaseInsensitiveComparer(strictComparer);
         Verifier whiteSpaceToleranceComparer = new WhiteSpaceToleranceComparer(strictComparer);
         Verifier orderToleranceComparer = new OrderToleranceComparer();
         Verifier multipleSolutionsComparer = new MultipleSolutionsComparer();
@@ -45,6 +46,7 @@ public class LensJudge {
         // Create a list of comparers
         List<Verifier> comparers = List.of(
                 strictComparer,
+                caseInsensitiveComparer,
                 whiteSpaceToleranceComparer,
                 orderToleranceComparer,
                 multipleSolutionsComparer,
