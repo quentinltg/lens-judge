@@ -5,7 +5,6 @@ import lens.judge.b5.execution.CExecutionStrategy;
 import lens.judge.b5.execution.IExecutionStrategy;
 import lens.judge.b5.execution.JavaExecutionStrategy;
 import lens.judge.b5.execution.PythonExecutionStrategy;
-import lens.judge.b5.problem.Problem;
 import lens.judge.b5.problem.TestCase;
 
 /**
@@ -16,7 +15,6 @@ public class RunnerBuilder {
 
     private IExecutionStrategy executionStrategy;
     private ICompilationStrategy compilationStrategy;
-    private TestCase testCase;
     private String sourceFile;
 
     /**
@@ -100,7 +98,6 @@ public class RunnerBuilder {
      * @return the current instance of RunnerBuilder
      */
     public RunnerBuilder withTestCase(TestCase tc) {
-        this.testCase = tc;
         return this;
     }
 
