@@ -27,28 +27,17 @@ public class OrderToleranceComparer implements Verifier {
         List<String> outputLines = readLines(output);
         List<String> expectedLines = readLines(expected);
 
-        // Vérifie la bonne taille de la liste
-        if (outputLines.size() != expectedLines.size()) {
-            return false;
-        }
-        
+        // Check if the sets of lines are equal, ignoring order
+        Set<String> outputSet = new HashSet<>(outputLines);
         Set<String> expectedSet = new HashSet<>(expectedLines);
-        Set<String> seenLines = new HashSet<>();
 
-        // Vérifie que chaque ligne de la sortie est dans la liste des lignes attendues
-        for (String line : outputLines) {
-            if (!expectedSet.contains(line) || !seenLines.add(line)) {
-                return false;
-            }
-        }
-
-        return true;
+        return outputSet.equals(expectedSet);
     }
 
     private List<String> readLines(String content) {
         if (content == null || content.isEmpty()) {
             return List.of();
         }
-        return Arrays.asList(content.split("\n"));
+        return Arrays.asList(content.split("\\s+"));
     }
 }
