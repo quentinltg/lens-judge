@@ -9,6 +9,8 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 repositories {
@@ -31,7 +33,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'lens.judge.b5.App'
+    mainClass = 'lens.judge.b5.LensJudge'
 }
 test {
     useJUnitPlatform()
@@ -46,3 +48,19 @@ sourceSets {
         }
     }
 }
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'lens.judge.b5.LensJudge'
+    }
+    archiveBaseName.set("lensjudge")
+    archiveVersion.set("")
+}
+
+shadowJar {
+    archiveBaseName.set("lensjudge")
+    archiveVersion.set("")
+    archiveClassifier.set("")
+}
+
+build.dependsOn shadowJar

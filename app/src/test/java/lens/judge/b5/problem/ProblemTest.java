@@ -2,17 +2,17 @@ package lens.judge.b5.problem;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 
 class ProblemTest {
 
     @Test
     void buildProblemWithValidParameters() {
         List<TestCase> testCases = new ArrayList<>();
-        testCases.add(new TestCase("input1", "output1"));
+        testCases.add(new TestCase(new File("output1"), new File("expected1")));
         Problem problem = ProblemBuilder.newInstance()
                 .withTestCases(testCases)
                 .withTimeLimit(1000)
@@ -52,7 +52,7 @@ class ProblemTest {
 
     @Test
     void addTestCaseToProblem() {
-        TestCase testCase = new TestCase("input3", "output3");
+        TestCase testCase = new TestCase(new File("output3"), new File("expected3"));
         Problem problem = ProblemBuilder.newInstance()
                 .withTestCases(new ArrayList<>())
                 .withTimeLimit(1000)
@@ -67,8 +67,8 @@ class ProblemTest {
 
     @Test
     void removeTestCaseFromProblem() {
-        TestCase testCase1 = new TestCase("input1", "output1");
-        TestCase testCase2 = new TestCase("input2", "output2");
+        TestCase testCase1 = new TestCase(new File("output1"), new File("expected1"));
+        TestCase testCase2 = new TestCase(new File("output2"), new File("expected2"));
         List<TestCase> initialTestCases = new ArrayList<>();
         initialTestCases.add(testCase1);
         initialTestCases.add(testCase2);
@@ -87,8 +87,8 @@ class ProblemTest {
 
     @Test
     void testIterator() {
-        TestCase testCase1 = new TestCase("input1", "output1");
-        TestCase testCase2 = new TestCase("input2", "output2");
+        TestCase testCase1 = new TestCase(new File("output1"), new File("expected1"));
+        TestCase testCase2 = new TestCase(new File("output2"), new File("expected2"));
         List<TestCase> initialTestCases = new ArrayList<>();
         initialTestCases.add(testCase1);
         initialTestCases.add(testCase2);
@@ -109,8 +109,8 @@ class ProblemTest {
 
     @Test
     void testSetTestCases() {
-        TestCase testCase1 = new TestCase("input1", "output1");
-        TestCase testCase2 = new TestCase("input2", "output2");
+        TestCase testCase1 = new TestCase(new File("output1"), new File("expected1"));
+        TestCase testCase2 = new TestCase(new File("output2"), new File("expected2"));
         List<TestCase> initialTestCases = new ArrayList<>();
         initialTestCases.add(testCase1);
 

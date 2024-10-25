@@ -1,22 +1,24 @@
 package lens.judge.b5.execution;
 
-import lens.judge.b5.process.ProcessAdapter;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import java.io.File;
+import java.io.IOException;
 
-public class CExecutionStrategyTest {
+class CExecutionStrategyTest {
 
     @Test
-    void executeRunsCCodeSuccessfully() {
-        CExecutionStrategy strategy = new CExecutionStrategy("testC");
-        strategy.execute();
-        ProcessAdapter process = strategy.getProcess();
-        assertNotNull(process);
+    void executeThrowsExceptionForNonExistentBinary() {
+        CExecutionStrategy strategy = new CExecutionStrategy("nonExistentBinary");
+        File inputFile = new File("input.txt");
+        assertThrows(IOException.class, () -> strategy.execute(inputFile));
     }
 
     @Test
-    void getProcessReturnsNullBeforeExecution() {
-        CExecutionStrategy strategy = new CExecutionStrategy("testC");
-        assertNull(strategy.getProcess());
+    void executeThrowsExceptionForInvalidInputFile() {
+        CExecutionStrategy strategy = new CExecutionStrategy("testBinary");
+        File inputFile = new File("nonexistent_input.txt");
+        assertThrows(IOException.class, () -> strategy.execute(inputFile));
     }
+
 }

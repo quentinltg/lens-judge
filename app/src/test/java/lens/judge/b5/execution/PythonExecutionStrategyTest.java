@@ -1,22 +1,40 @@
 package lens.judge.b5.execution;
 
-import lens.judge.b5.process.ProcessAdapter;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
-public class PythonExecutionStrategyTest {
+class PythonExecutionStrategyTest {
 
     @Test
-    void executeRunsPythonCodeSuccessfully() {
-        PythonExecutionStrategy strategy = new PythonExecutionStrategy("app/src/test/resources/test.py");
-        strategy.execute();
-        ProcessAdapter process = strategy.getProcess();
-        assertNotNull(process);
+    void executeRunsSuccessfullyWithValidInput() throws Exception {
+        PythonExecutionStrategy strategy = new PythonExecutionStrategy("testScript.py");
+        File inputFile = createTempFileWithContent("input.txt", "input data");
+        strategy.execute(inputFile);
+        assertNotNull(strategy.getProcess());
     }
 
     @Test
-    void getProcessReturnsNullBeforeExecution() {
-        PythonExecutionStrategy strategy = new PythonExecutionStrategy("app/src/test/resources/test.py");
-        assertNull(strategy.getProcess());
+    void executeThrowsExceptionForNonExistentScript() {
+        PythonExecutionStrategy strategy = new PythonExecutionStrategy("nonExistentScript.py");
+        File inputFile = new File("input.txt");
+        assertThrows(IOException.class, () -> strategy.execute(inputFile));
+    }
+
+    @Test
+    void executeThrowsExceptionForInvalidInputFile() {
+        PythonExecutionStrategy strategy = new PythonExecutionStrategy("testScript.py");
+        File inputFile = new File("nonexistent_input.txt");
+        assertThrows(IOException.class, () -> strategy.execute(inputFile));
+    }
+
+    private File createTempFileWithContent(String fileName, String content) throws IOException {
+        File tempFile = File.createTempFile(fileName, null);
+        try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+            fos.write(content.getBytes());
+        }
+        return tempFile;
     }
 }

@@ -2,33 +2,58 @@ package lens.judge.b5.runner;
 
 import lens.judge.b5.compiler.ICompilationStrategy;
 import lens.judge.b5.execution.IExecutionStrategy;
-import lens.judge.b5.problem.TestCase;
+import lens.judge.b5.verifier.Verifier;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+/**
+ * The Runner class is responsible for compiling, executing, and verifying the output of a source file.
+ */
 public class Runner {
     private IExecutionStrategy executionStrategy;
     private ICompilationStrategy compilationStrategy;
     private String sourceFile;
 
+    /**
+     * Constructs a Runner with the specified execution and compilation strategies and source file.
+     *
+     * @param executionStrategy the strategy to execute the compiled program
+     * @param compilationStrategy the strategy to compile the source file
+     * @param sourceFile the path to the source file to be compiled and executed
+     */
     public Runner(IExecutionStrategy executionStrategy, ICompilationStrategy compilationStrategy, String sourceFile) {
         this.executionStrategy = executionStrategy;
         this.compilationStrategy = compilationStrategy;
         this.sourceFile = sourceFile;
     }
 
-    public Verdict run() {
-         // 1. Compiler le programme
+    /**
+     * Compiles and executes the source file with the given input file, and verifies the output against the expected output file.
+     *
+     * @param inputFile the input file to be used during execution
+     * @param expectedOuputFile the file containing the expected output
+     * @param comparer the verifier to compare the actual output with the expected output
+     * @return the verdict of the execution and verification process
+     */
+    public Verdict run(File inputFile, File expectedOuputFile, Verifier comparer) {
+        File outputFile = new File("app/src/main/resources/output.ans");
+
+        // 1. Compile the program
         try {
             compilationStrategy.compile(sourceFile);
         } catch (Exception e) {
-            System.out.println("Compilation failed" + e.getMessage());
+            System.out.println("Compilation failed: " + e.getMessage());
             return Verdict.COMPILATION_ERROR;
         }
 
-        // 2. Exécuter le programme avec l'entrée du TestCase
+        // 2. Execute the program with the TestCase input
         try {
-            executionStrategy.execute();
+            executionStrategy.execute(inputFile);
 
-            // Récupération de la sortie et des erreurs
+            // Capture the output and errors
             String output = executionStrategy.getProcess().getOutput();
             String errorOutput = executionStrategy.getProcess().getErrorOutput();
 
@@ -37,14 +62,25 @@ public class Runner {
                 return Verdict.RUNTIME_ERROR;
             }
 
-            // 3. Vérifier la sortie
-            System.out.println("Output: " + output);
-            return Verdict.ACCEPTED;
+            // Write the output to the output file
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+                writer.write(output);
+            } catch (IOException e) {
+                System.out.println("Error writing to output file: " + e.getMessage());
+                return Verdict.RUNTIME_ERROR;
+            }
+
+            // 3. Verify the output
+            boolean result = comparer.verify(outputFile, expectedOuputFile);
+            if (result) {
+                return Verdict.ACCEPTED;
+            } else {
+                return Verdict.WRONG_ANSWER;
+            }
 
         } catch (Exception e) {
-            System.out.println("Execution failed.");
+            System.out.println("Execution failed: " + e.getMessage());
             return Verdict.RUNTIME_ERROR;
         }
     }
 }
-
