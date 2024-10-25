@@ -24,7 +24,7 @@ public class PythonExecutionStrategy implements IExecutionStrategy {
 
     @Override
     public void execute(File inputFile) throws Exception {
-        System.out.println("Executing Python code : python3 " + scriptName);
+        // System.out.println("Executing Python code : python3 " + scriptName);
         process = new ProcessAdapter("python3", scriptName);
         process.start();
 

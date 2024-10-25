@@ -6,13 +6,12 @@ import lens.judge.b5.problem.TestCase;
 import lens.judge.b5.runner.Runner;
 import lens.judge.b5.runner.RunnerBuilder;
 import lens.judge.b5.runner.Verdict;
-import lens.judge.b5.verifier.OrderToleranceComparer;
-import lens.judge.b5.verifier.StrictComparer;
-import lens.judge.b5.verifier.Verifier;
+import lens.judge.b5.verifier.*;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class LensJudge {
     public static void main(String[] args) {
@@ -32,21 +31,44 @@ public class LensJudge {
         File expectedOutputFile = new File(args[2]);
 
 
-        // Créer un problème avec un TestCase
-        StrictComparer comparer = new StrictComparer();
-        ArrayList<TestCase> testCases = new ArrayList<>();
-        TestCase testCase = new TestCase(inputFile, expectedOutputFile);
-        testCases.add(testCase);
-        Problem problem = new Problem(testCases, 1000, 256, comparer );  // Limite de temps: 1000 ms, Limite de mémoire: 256 Mo
+        // Create a list of test cases
+        List<TestCase> testCases = new ArrayList<>();
+        testCases.add(new TestCase(inputFile, expectedOutputFile));
 
+        // Create instances of different comparers
+        Verifier strictComparer = new StrictComparer();
+        Verifier whiteSpaceToleranceComparer = new WhiteSpaceToleranceComparer(strictComparer);
+        Verifier orderToleranceComparer = new OrderToleranceComparer();
+        Verifier multipleSolutionsComparer = new MultipleSolutionsComparer();
+        Verifier precisionToleranceComparer = new PrecisionToleranceComparer();
 
-        // Itérer sur les TestCases du problème
-        for (TestCase tc : problem) {
-            // Construire et exécuter le Runner
-            Runner runner = new RunnerBuilder()
-                    .withTestCase(tc)
-                    .withSourceFile(sourceFile)  // Chemin complet du fichier source
-                    .build();  // Le builder choisit les stratégies en fonction du fichier
+        // Create a list of comparers
+        List<Verifier> comparers = List.of(
+                strictComparer,
+                whiteSpaceToleranceComparer,
+                orderToleranceComparer,
+                multipleSolutionsComparer,
+                precisionToleranceComparer
+        );
+
+        // Iterate over each comparer
+        for (Verifier comparer : comparers) {
+            // Create a problem with the test cases and the comparer
+            Problem problem = new Problem(testCases, 1000, 256, comparer);
+
+            // Iterate over the test cases in the problem
+            for (TestCase tc : problem) {
+                // Build and run the runner
+                Runner runner = new RunnerBuilder()
+                        .withTestCase(tc)
+                        .withSourceFile(sourceFile)
+                        .build();
+
+                boolean verdict = runner.run(inputFile, expectedOutputFile, comparer);  // Exécuter le programme sans vérification pour le moment
+                System.out.println("Using comparer: " + comparer.getClass().getSimpleName());
+                System.out.println("TestCase verdict: " + verdict);
+            }
+        }
 
 
 
@@ -69,9 +91,6 @@ public class LensJudge {
             ));
             */
 
-            boolean verdict = runner.run(inputFile, expectedOutputFile);  // Exécuter le programme sans vérification pour le moment
-            System.out.println("TestCase verdict: " + verdict);
-        }
     }
 }
         /*
