@@ -75,7 +75,7 @@ public class RunnerBuilder {
     private String getFileExtension(String fileName) {
         int lastIndexOfDot = fileName.lastIndexOf('.');
         if (lastIndexOfDot == -1) {
-            return ""; // Pas d'extension
+            return "";
         }
         return fileName.substring(lastIndexOfDot);
     }
