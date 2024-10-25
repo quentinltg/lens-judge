@@ -24,7 +24,7 @@ public class JavaExecutionStrategy implements IExecutionStrategy {
 
     @Override
     public void execute(File inputFile) throws Exception {
-        System.out.println("Executing Java code : java -cp app/bin " + className);
+        // System.out.println("Executing Java code : java -cp app/bin " + className);
         process = new ProcessAdapter("java", "-cp", "app/bin", className);
         process.start();
 

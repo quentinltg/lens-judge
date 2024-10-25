@@ -24,7 +24,7 @@ public class CExecutionStrategy implements IExecutionStrategy {
 
     @Override
     public void execute(File inputFile) throws Exception {
-        System.out.println("Executing C/C++ code : app/bin/" + binaryName);
+        // System.out.println("Executing C/C++ code : app/bin/" + binaryName);
         process = new ProcessAdapter("app/bin/" + binaryName);
         process.start();
 

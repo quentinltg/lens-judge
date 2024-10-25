@@ -21,14 +21,13 @@ public class Runner {
         this.sourceFile = sourceFile;
     }
 
-    public boolean run(File inputFile ,File expectedOuputFile) {
-        Verifier comparer = new StrictComparer();
+    public boolean run(File inputFile, File expectedOuputFile, Verifier comparer) {
         File outputFile = new File("app/src/main/resources/output.ans");
 
         // 1. Compile the program
         try {
             compilationStrategy.compile(sourceFile);
-            System.out.println("Compilation successful.");
+            // System.out.println("Compilation successful.");
         } catch (Exception e) {
             System.out.println("Compilation failed: " + e.getMessage());
             return false;
@@ -56,9 +55,9 @@ public class Runner {
             }
 
             // 3. Verify the output
-            System.out.println("Output: " + output);
+            System.out.print("\nOutput: " + output);
             boolean result = comparer.verify(outputFile, expectedOuputFile);
-            System.out.println("Verification result: " + result);
+            // System.out.println("Verification result: " + result);
             return result;
 
         } catch (Exception e) {
