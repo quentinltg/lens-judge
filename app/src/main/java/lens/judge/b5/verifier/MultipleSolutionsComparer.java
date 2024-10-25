@@ -27,15 +27,15 @@ public class MultipleSolutionsComparer implements Verifier {
 
     @Override
     public boolean verify(String output, String expected) {
-        // Split the expected content into lines and store them in a Set
-        Set<String> expectedLines = new HashSet<>(List.of(expected.split("\n")));
+        // Split the expected content into words and store them in a Set
+        Set<String> expectedWords = new HashSet<>(List.of(expected.split("\\s+")));
 
-        // Split the output content into lines
-        List<String> outputLines = List.of(output.split("\n"));
+        // Split the output content into words
+        List<String> outputWords = List.of(output.split("\\s+"));
 
         // Check if the output matches any of the expected solutions
-        for (String line : outputLines) {
-            if (expectedLines.contains(line)) {
+        for (String word : outputWords) {
+            if (expectedWords.contains(word)) {
                 return true;
             }
         }
