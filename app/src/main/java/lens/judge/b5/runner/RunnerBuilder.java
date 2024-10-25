@@ -43,21 +43,24 @@ public class RunnerBuilder {
     }
 
     public RunnerBuilder chooseStrategies() {
+        String fileNameWithoutExtension = extractFileNameWithoutExtension(sourceFile);
         String extension = getFileExtension(sourceFile);
 
         switch (extension) {
             case ".java":  // L'extension est maintenant sans le point
                 this.compilationStrategy = new JavaCompilationStrategy();
                 // Indiquer le chemin du fichier class compilé
-                this.executionStrategy = new JavaExecutionStrategy("Test");
+                this.executionStrategy = new JavaExecutionStrategy(fileNameWithoutExtension);
                 break;
             case ".c":
                 this.compilationStrategy = new CCompilationStrategy();
-                this.executionStrategy = new CExecutionStrategy("test");
+                this.executionStrategy = new CExecutionStrategy(fileNameWithoutExtension);
                 break;
             case ".cpp":
+            case ".cc":
+            case ".cxx":
                 this.compilationStrategy = new CppCompilationStrategy();
-                this.executionStrategy = new CExecutionStrategy("test");
+                this.executionStrategy = new CExecutionStrategy(fileNameWithoutExtension);
                 break;
             case ".py":
                 this.compilationStrategy = new PythonCompilationStrategy();
@@ -81,4 +84,10 @@ public class RunnerBuilder {
         this.testCase = tc;
         return this;
     }
+
+    public static String extractFileNameWithoutExtension(String filePath) {
+        String fileNameWithExtension = filePath.substring(filePath.lastIndexOf('/') + 1);
+        return fileNameWithExtension.substring(0, fileNameWithExtension.lastIndexOf('.'));
+    }
+
 }
