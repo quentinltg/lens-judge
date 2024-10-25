@@ -4,7 +4,7 @@
 
 `javac -d bin $(find app/src/main/java -name "*.java")`
 
-## Execution :
+### Execution :
 
 `java -cp bin lens.judge.b5.LensJudge <sourceFile> <inputFile> <expectedOutputFile>`
 
