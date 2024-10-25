@@ -69,7 +69,7 @@ public class LensJudge {
             ));
             */
 
-            boolean verdict = runner.run(expectedOutputFile);  // Exécuter le programme sans vérification pour le moment
+            boolean verdict = runner.run(inputFile, expectedOutputFile);  // Exécuter le programme sans vérification pour le moment
             System.out.println("TestCase verdict: " + verdict);
         }
     }
