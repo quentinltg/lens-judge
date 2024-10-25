@@ -22,8 +22,6 @@ public class LensJudge {
         // String sourceFile = "app/src/test/resources/test.cpp";
         // String sourceFile = "app/src/test/resources/test.py";
 
-        Scanner scanner = new Scanner(System.in);
-
         if (args.length < 3) {
             System.out.println("Usage: lensjudge <sourceFile> <inputFile> <expectedOutputFile>");
             return;
@@ -71,11 +69,12 @@ public class LensJudge {
                         .withSourceFile(sourceFile)
                         .build();
 
-                boolean verdict = runner.run(inputFile, expectedOutputFile, comparer);  // Exécuter le programme sans vérification pour le moment
-                System.out.println("Using comparer: " + comparer.getClass().getSimpleName());
-                System.out.println("TestCase verdict: " + verdict);
+                Verdict verdict = runner.run(inputFile, expectedOutputFile, comparer);  // Exécuter le programme sans vérification pour le moment
+                System.out.println("\nComparer: " + comparer.getClass().getSimpleName());
+                System.out.println("Verdict: " + verdict);
             }
         }
+        System.out.println();
 
 
 
